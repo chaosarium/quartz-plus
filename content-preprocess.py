@@ -67,50 +67,30 @@ def find_publish_hashtag(second_brain_path: str, copy_to_path: str):
           )
           break
 
+def add_h1_as_title_frontmatter(file_path: str):
+  print(f"start converting {file_path}")
+  with open(file_path, "r") as f:
 
-def add_h1_as_title_frontmatter(file_path: str, last_modified: str):
-    print(f"start converting {file_path}")
+    # read line by line and search for h1
+    # copy text of h1
     with open(file_path, "r") as f:
-        content = pandoc.read(f.read(), format="markdown")
+      lines = f.readlines()
+      for line in lines:
+        result = re.findall(h1, line)
+        # print(result)
+        if result:
+          print(f"found h1 in {file_path} line: {line}")
+          break
 
-        headers = []
-        for elt in pandoc.iter(content):
-            if isinstance(elt, Header):
-                if (
-                    elt[0] == 1
-                ):  # this is header 1, remove this if statement if you want all headers.
-                    header = pandoc.write(elt[2]).strip()
-                    headers.append(header)
-
-                    # remove h1 (1 #) from content
-                    content, lambda elt: elt != elt[2]
-
-        # read line by line and search for h1
-        # delete this line when found
-        with open(file_path, "r") as f:
-            lines = f.readlines()
-            for line in lines:
-                if re.search(h1, line):
-                    print(f"found h1 in {file_path}. removing...liine: {line}")
-                    lines.remove(line)
-                    break
-        # write back to file
-        with open(file_path, "w") as f:
-            f.writelines(lines)
-
-        # read file with frontmatter
-        with open(file_path, "r") as f:
-            frontmatter_post = frontmatter.load(f)
-            # add h1 header to `title` to frontmatter
-            if len(headers) > 0:
-                frontmatter_post["title"] = headers[0]
-            # add last modified date
-            if len(last_modified):
-                frontmatter_post["lastmod"] = last_modified
-            # overwrite current file with added title
-            with open(file_path, "wb") as f:
-                frontmatter.dump(frontmatter_post, f)
-
+    # put in frontmatter if any
+    if len(result) > 0:
+      with open(file_path, "r") as f:
+        frontmatter_post = frontmatter.load(f)
+        # add h1 header to `title` to frontmatter
+        frontmatter_post["title"] = result[0]
+        # overwrite current file with added title
+        with open(file_path, "wb") as f:
+          frontmatter.dump(frontmatter_post, f)
 
 def find_image_and_copy(image_name: str, root_path: str, public_brain_image_path: str):
 
