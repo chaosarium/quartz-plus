@@ -6,34 +6,30 @@ import shutil
 from pathlib import Path
 import re
 import glob
-
-import pandoc
-from pandoc.types import *
 import frontmatter
 
-# loop through directly recursively through the directory and find all the .md files
-# then loop through the files and find all the publish notes
-# then loop through file backwards and find hashtag "#publish"
-# if file found, move it to public folder
+# - loop through directly recursively through the directory and find all the .md files
+# - then loop through the files and find all the published notes
+# - if file found, move it to public folder
+# - copy first h1 to frontmatter as title
 
-git = os.getenv("git")
-secondbrain = os.getenv("secondbrain")
-secondbrain_public = os.getenv("public_secondbrain")
+# git = os.getenv("git")
+# secondbrain = os.getenv("secondbrain")
+# secondbrain_public = os.getenv("public_secondbrain")
 
 
 # define paths
-second_brain_path = str(secondbrain)  # "/tmp/second-brain-tmp"
-public_folder_path_copy = str(secondbrain_public)
-public_brain_image_path = os.path.join(public_folder_path_copy, "images")
+# second_brain_path = str(secondbrain)  # "/tmp/second-brain-tmp"
+# public_folder_path_copy = str(secondbrain_public)
+# public_brain_image_path = os.path.join(public_folder_path_copy, "images")
 
+# for now. works locally
+second_brain_path = str('content-source/100 Vault')
+public_folder_path_copy = str('content')
+public_brain_image_path = os.path.join('content', "images")
 
-regexp_md_images = "!\[\[(.*?)\]\](.*)\s"
-h1 = "(?m)^#(?!#)(.*)"
-h2 = "(?m)^#{2}(?!#)(.*)"
-h3 = "(?m)^#{3}(?!#)(.*)"
-h4 = "(?m)^#{4}(?!#)(.*)"
-h5 = "(?m)^#{5}(?!#)(.*)"
-h6 = "(?m)^#{6}(?!#)(.*)"
+regexp_md_images = "!\[\[(.*?)\]\](.*)\s" # BUG breaks videos it seems
+h1 = "(?m)^# (.*)" # finds entire h1 line
 
 def find_publish_hashtag(second_brain_path: str, copy_to_path: str):
   """
@@ -93,33 +89,32 @@ def add_h1_as_title_frontmatter(file_path: str):
           frontmatter.dump(frontmatter_post, f)
 
 def find_image_and_copy(image_name: str, root_path: str, public_brain_image_path: str):
-
-    text_files = glob.glob(root_path + "/**/" + image_name, recursive=True)
-    for file in text_files:
-        shutil.copy(file, public_brain_image_path)
-        # print(f"image `{file}` copied to {public_brain_image_path}")
-
+  text_files = glob.glob(root_path + "/**/" + image_name, recursive=True)
+  for file in text_files:
+    shutil.copy(file, public_brain_image_path)
+    # print(f"image `{file}` copied to {public_brain_image_path}")
 
 def list_images_from_markdown(file_path: str):
-    # search for images in markdown file
-    file_content = open(file_path, "r").read()
-    images = re.search(regexp_md_images, file_content)
-    if images:
-        for image in images.groups():
-            if image:
-                # find image recursively in folder and copy to public image folder
-                find_image_and_copy(image, second_brain_path, public_folder_path_copy)
-
-    # print(f"image: {file_path}, ln: {line}")
-    pass
-
+  # search for images in markdown file
+  file_content = open(file_path, "r").read()
+  images = re.search(regexp_md_images, file_content)
+  if images:
+    for image in images.groups():
+      if image:
+        # find image recursively in folder and copy to public image folder
+        find_image_and_copy(image, second_brain_path, public_folder_path_copy)
+  # print(f"image: {file_path}, ln: {line}")
+  pass
 
 if __name__ == "__main__":
-    find_hashtag(second_brain_path, public_folder_path_copy)
-    # loop through public files and add referenced images, fix h1 headers and ..
-    for root, dirs, files in os.walk(public_folder_path_copy):
-        for file in files:
-            if file.endswith(".md"):
-                file_path = os.path.join(root, file)
-                list_images_from_markdown(file_path)
-                # print(f"converted: {file_path}")
+  find_publish_hashtag(second_brain_path, public_folder_path_copy)
+  
+  # loop through public files and add referenced images, fix h1 headers and ..
+  for root, dirs, files in os.walk(public_folder_path_copy):
+    for file in files:
+      if file.endswith(".md"):
+        file_path = os.path.join(root, file)
+        list_images_from_markdown(file_path)
+        # print(f"converted: {file_path}")
+        
+# TODO find inline tags and add to frontmatter
