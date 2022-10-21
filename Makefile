@@ -13,15 +13,19 @@ update-force: ## Forcefully pull all changes and don't ask to patch
 	git fetch upstream
 	git checkout upstream/hugo -- layouts .github Makefile assets/js assets/styles/base.scss assets/styles/darkmode.scss config.toml data
 
+build:
+	hugo --cleanDestinationDir --enableGitInfo
+
 serve: ## Serve Quartz locally
-	hugo-obsidian -input=content -output=assets/indices -index -root=. && hugo server --enableGitInfo --minify
+	hugo server --enableGitInfo
 
 prepare: ## prepare commands
 	# clear content folder
 	find "content" -type f -delete
 	#copy published notes to quartz
 	python content-preprocess.py
-	
+	hugo-obsidian -input=content -output=assets/indices -index -root=. 
+
 	# rm -r public
 	# hugo-obsidian -input=content -output=assets/indices -index -root=. 
 	# python utils/lower_case.py #change linkIndex to lowercase for proper linking
