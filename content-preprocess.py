@@ -88,12 +88,14 @@ def add_h1_as_title_frontmatter(file_path: str):
         with open(file_path, "wb") as f:
           frontmatter.dump(frontmatter_post, f)
 
+# TODO test this
 def find_image_and_copy(image_name: str, root_path: str, public_brain_image_path: str):
   text_files = glob.glob(root_path + "/**/" + image_name, recursive=True)
   for file in text_files:
     shutil.copy(file, public_brain_image_path)
     # print(f"image `{file}` copied to {public_brain_image_path}")
 
+# TODO test this
 def list_images_from_markdown(file_path: str):
   # search for images in markdown file
   file_content = open(file_path, "r").read()
