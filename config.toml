@@ -10,12 +10,12 @@ disablePathToLower = true
 summaryLength = 20
 paginate = 10
 enableGitInfo = true
+disableAliases = true # compatable with obsidian alias
 
-# make draft by default
-[[cascade]]
-draft = true
-[cascade._target]
-  path = '/notes/**'
+# url management
+[permalinks]
+    # put posts as root link
+    '/' = '/:filename/'
 
 [markup]
     [markup.tableOfContents]
@@ -39,8 +39,3 @@ draft = true
     [markup.goldmark.renderer]
         unsafe = true
         hardWraps = true
-
-# url management
-[permalinks]
-    # put posts as root link
-    '/' = '/root/:filename/'
