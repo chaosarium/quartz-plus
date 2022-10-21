@@ -31,7 +31,7 @@ public_brain_image_path = os.path.join('content', "images")
 regexp_md_images = "!\[\[(.*?)\]\](.*)\s" # BUG breaks videos it seems
 h1 = "(?m)^# (.*)" # finds entire h1 line
 
-def find_publish_hashtag(second_brain_path: str, copy_to_path: str):
+def find_and_copy_published(second_brain_path: str, copy_to_path: str):
   """
   - find `published: true` frontmatter in private folder and move it to public folder.
   - copies h1 title (`# ..`) into frontmatter as YAML title
@@ -45,7 +45,7 @@ def find_publish_hashtag(second_brain_path: str, copy_to_path: str):
         with open(file_path, "r") as f:
           fmt = frontmatter.load(f)
           # print(fmt.metadata)
-        if "published" in fmt.metadata.keys() and fmt.metadata["published"] == True:
+        if ("published" in fmt.metadata.keys()) and (fmt.metadata["published"] == True):
 
           # destination should be lower-case (spaces will be handled by hugo with `urlize`)
           # file_name_lower = os.path.basename(file_path).lower() # HACK unnecessary?
@@ -61,7 +61,6 @@ def find_publish_hashtag(second_brain_path: str, copy_to_path: str):
           add_h1_as_title_frontmatter(
             os.path.join(copy_to_path, file)
           )
-          break
 
 def add_h1_as_title_frontmatter(file_path: str):
   print(f"start converting {file_path}")
@@ -109,7 +108,7 @@ def list_images_from_markdown(file_path: str):
   pass
 
 if __name__ == "__main__":
-  find_publish_hashtag(second_brain_path, public_folder_path_copy)
+  find_and_copy_published(second_brain_path, public_folder_path_copy)
   
   # loop through public files and add referenced images, fix h1 headers and ..
   for root, dirs, files in os.walk(public_folder_path_copy):
