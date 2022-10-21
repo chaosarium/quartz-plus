@@ -3,13 +3,19 @@ languageCode = "en-us"
 googleAnalytics = "G-XYFD95KB4J"
 relativeURLs = false
 disablePathToLower = true
-ignoreFiles = [
-    "/content/templates/*",
-    "/content/private/*",
-]
+# ignoreFiles = [
+#     "/content/templates/*",
+#     "/content/private/*",
+# ]
 summaryLength = 20
 paginate = 10
 enableGitInfo = true
+
+# make draft by default
+[[cascade]]
+draft = true
+[cascade._target]
+  path = '/notes/**'
 
 [markup]
     [markup.tableOfContents]
@@ -32,3 +38,9 @@ enableGitInfo = true
         publishDate = ["publishDate", "date"]
     [markup.goldmark.renderer]
         unsafe = true
+        hardWraps = true
+
+# url management
+[permalinks]
+    # put posts as root link
+    '/' = '/root/:filename/'

@@ -45,6 +45,7 @@
       {{$block = strings.TrimRight "/" (cond (eq $block "") $block (printf "#%s" $block)) | urlize | lower}}
       {{$href := strings.TrimRight "/" ($page.GetPage $title).RelPermalink}}
       <!-- if alias given, use alias, else title -->
+      {{printf "%#v" $href}}
       {{$display := default $title (index $split 1)}}
       <!-- ADDED LINE TO REMOVE SUBFOLDER FROM TITLE: -->
       {{$display := index (last 1 (split $display "/")) 0}}
