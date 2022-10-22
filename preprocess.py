@@ -75,14 +75,14 @@ def add_h1_as_title_frontmatter(file_path: str):
         with open(file_path, "wb") as f:
           frontmatter.dump(frontmatter_post, f)
 
-# TODO test this
+# TODO generalise to attachments
 def find_image_and_copy(image_name: str, root_path: str, target_attachment_path: str):
   files = glob.glob(root_path + "/**/" + image_name, recursive=True)
   for file in files:
     shutil.copy(file, os.path.join(target_attachment_path, image_name))
     print(f"image `{file}` copied to {target_attachment_path}")
 
-# TODO test this
+# TODO generalise to attachments
 def list_images_from_markdown(file_path: str, root_path: str, target_attachment_path: str):
   # search for images in markdown file
   file_content = open(file_path, "r").read()

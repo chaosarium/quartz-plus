@@ -23,7 +23,7 @@ preprocess: ## prepare commands
 	# clear content folder
 	find "content" -type f -delete
 	#copy published notes to quartz
-	python preprocess.py --source_path "content-source/100 Vault" --target_path "content" --target_attachment_path "content/images"
+	python preprocess.py --source_path "content-source/100 Vault" --target_path "content" --target_attachment_path "static/attachments"
 	hugo-obsidian -input=content -output=assets/indices -index -root=. 
 
 	# rm -r public
@@ -31,14 +31,30 @@ preprocess: ## prepare commands
 	# python utils/lower_case.py #change linkIndex to lowercase for proper linking
 
 test: ## small scale content testing
+	make regen
+
+	open http://localhost:1313/something
+	make serve
+
+regen: ## re-preprocess when testing. Useful when hugo server already running
 	# clear content folder
 	find "content" -type f -delete
 
 	#copy test vault to quartz
-	python preprocess.py --source_path "content-source-test" --target_path "content" --target_attachment_path "content/images"
+	python preprocess.py --source_path "content-source-test" --target_path "content" --target_attachment_path "static/attachments"
 
 	# generate graph
 	hugo-obsidian -input=content -output=assets/indices -index -root=. 
 
-	open http://localhost:1313/
-	make serve
+genproduction: ## re-preprocess when testing. Useful when hugo server already running
+	# clear content folder
+	find "content" -type f -delete
+
+	#copy test vault to quartz
+	python preprocess.py --source_path "/Users/chaosarium/Library/Mobile Documents/iCloud~md~obsidian/Documents/Zettelkasten" --target_path "content" --target_attachment_path "static/attachments"
+
+	# generate graph
+	hugo-obsidian -input=content -output=assets/indices -index -root=. 
+
+watch: ## regenerates content folder every time file changes
+	fswatch -0 -v -o content-source-test | xargs -0 -n 1 -I {} make regen
