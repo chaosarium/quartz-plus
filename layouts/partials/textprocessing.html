@@ -10,9 +10,9 @@
 {{end}}
 
 {{/* Wikilinks */}}
-{{$wikilinks := $content | findRE "!?\\[\\[\\S[^\\[\\]\\|]*(?:\\|[^\\[\\]]*)?\\S\\]\\]" }}
-{{$codefences := $raw | findRE "\\x60[^\\x60\\n]+\\x60"}}
-{{$codeblocks := $raw | findRE "\\x60{3}[^\\x60]+\\x60{3}"}}
+{{$wikilinks := $content | findRE `!?\[\[\S[^\[\]\|]*(?:\|[^\[\]]*)?\S\]\]` }} 
+{{$codefences := $raw | findRE "\\x60[^\\x60\\n]+\\x60"}} {{/*  looks for `blah`  */}}
+{{$codeblocks := $raw | findRE "\\x60{3}[^\\x60]+\\x60{3}"}} {{/*  looks for ```blah```  */}}
 {{$code := union $codefences $codeblocks}}
 {{range $wikilinks}}
   {{$cur := .}}
