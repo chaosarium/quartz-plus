@@ -57,4 +57,5 @@ genproduction: ## re-preprocess when testing. Useful when hugo server already ru
 	hugo-obsidian -input=content -output=assets/indices -index -root=. 
 
 watch: ## regenerates content folder every time file changes
+	make regen
 	fswatch -0 -v -o content-source-test | xargs -0 -n 1 -I {} make regen
