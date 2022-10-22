@@ -77,10 +77,10 @@ def add_h1_as_title_frontmatter(file_path: str):
 
 # TODO test this
 def find_image_and_copy(image_name: str, root_path: str, target_attachment_path: str):
-  text_files = glob.glob(root_path + "/**/" + image_name, recursive=True)
-  for file in text_files:
-    shutil.copy(file, target_attachment_path)
-    # print(f"image `{file}` copied to {target_attachment_path}")
+  files = glob.glob(root_path + "/**/" + image_name, recursive=True)
+  for file in files:
+    shutil.copy(file, os.path.join(target_attachment_path, image_name))
+    print(f"image `{file}` copied to {target_attachment_path}")
 
 # TODO test this
 def list_images_from_markdown(file_path: str, root_path: str, target_attachment_path: str):
@@ -110,7 +110,7 @@ if __name__ == "__main__":
     for file in files:
       if file.endswith(".md"):
         file_path = os.path.join(root, file)
-        list_images_from_markdown(file_path, args.source_path, args.target_path)
+        list_images_from_markdown(file_path, args.source_path, args.target_attachment_path)
         # print(f"converted: {file_path}")
         
 # TODO find inline tags and add to frontmatter
