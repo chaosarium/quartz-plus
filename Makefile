@@ -19,13 +19,26 @@ build:
 serve: ## Serve Quartz locally
 	hugo server --enableGitInfo
 
-prepare: ## prepare commands
+preprocess: ## prepare commands
 	# clear content folder
 	find "content" -type f -delete
 	#copy published notes to quartz
-	python content-preprocess.py
+	python preprocess.py --source_path "content-source/100 Vault" --target_path "content" --target_attachment_path "content/images"
 	hugo-obsidian -input=content -output=assets/indices -index -root=. 
 
 	# rm -r public
 	# hugo-obsidian -input=content -output=assets/indices -index -root=. 
 	# python utils/lower_case.py #change linkIndex to lowercase for proper linking
+
+test: ## small scale content testing
+	# clear content folder
+	find "content" -type f -delete
+
+	#copy test vault to quartz
+	python preprocess.py --source_path "content-source-test" --target_path "content" --target_attachment_path "content/images"
+
+	# generate graph
+	hugo-obsidian -input=content -output=assets/indices -index -root=. 
+
+	open http://localhost:1313/
+	make serve

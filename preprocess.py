@@ -1,6 +1,5 @@
 # inspired by and based on https://github.com/sspaeti/second-brain-public
-
-import os
+import os, sys, argparse
 from datetime import datetime
 import shutil
 from pathlib import Path
@@ -17,26 +16,15 @@ import frontmatter
 # secondbrain = os.getenv("secondbrain")
 # secondbrain_public = os.getenv("public_secondbrain")
 
-
-# define paths
-# second_brain_path = str(secondbrain)  # "/tmp/second-brain-tmp"
-# public_folder_path_copy = str(secondbrain_public)
-# public_brain_image_path = os.path.join(public_folder_path_copy, "images")
-
-# for now. works locally
-second_brain_path = str('content-source/100 Vault')
-public_folder_path_copy = str('content')
-public_brain_image_path = os.path.join('content', "images")
-
 regexp_md_images = "!\[\[(.*?)\]\](.*)\s" # BUG breaks videos it seems
 h1 = "(?m)^# (.*)" # finds entire h1 line
 
-def find_and_copy_published(second_brain_path: str, copy_to_path: str):
+def find_and_copy_published(source_path: str, copy_to_path: str):
   """
   - find `published: true` frontmatter in private folder and move it to public folder.
   - copies h1 title (`# ..`) into frontmatter as YAML title
   """
-  for root, dirs, files in os.walk(second_brain_path):
+  for root, dirs, files in os.walk(source_path):
     for file in files:
       print(file)
       if file.endswith(".md"):
@@ -88,14 +76,14 @@ def add_h1_as_title_frontmatter(file_path: str):
           frontmatter.dump(frontmatter_post, f)
 
 # TODO test this
-def find_image_and_copy(image_name: str, root_path: str, public_brain_image_path: str):
+def find_image_and_copy(image_name: str, root_path: str, target_attachment_path: str):
   text_files = glob.glob(root_path + "/**/" + image_name, recursive=True)
   for file in text_files:
-    shutil.copy(file, public_brain_image_path)
-    # print(f"image `{file}` copied to {public_brain_image_path}")
+    shutil.copy(file, target_attachment_path)
+    # print(f"image `{file}` copied to {target_attachment_path}")
 
 # TODO test this
-def list_images_from_markdown(file_path: str):
+def list_images_from_markdown(file_path: str, root_path: str, target_attachment_path: str):
   # search for images in markdown file
   file_content = open(file_path, "r").read()
   images = re.search(regexp_md_images, file_content)
@@ -103,19 +91,26 @@ def list_images_from_markdown(file_path: str):
     for image in images.groups():
       if image:
         # find image recursively in folder and copy to public image folder
-        find_image_and_copy(image, second_brain_path, public_folder_path_copy)
+        find_image_and_copy(image, root_path, target_attachment_path)
   # print(f"image: {file_path}, ln: {line}")
   pass
 
 if __name__ == "__main__":
-  find_and_copy_published(second_brain_path, public_folder_path_copy)
+  # set variables
+  parser = argparse.ArgumentParser()
+  parser.add_argument('--source_path', required = True) # obsidian vault
+  parser.add_argument('--target_path', required = True) # whereever hugo looks for content
+  parser.add_argument('--target_attachment_path', required = True) # whereever hugo looks for attachments
+  args = parser.parse_args()
+  
+  find_and_copy_published(args.source_path, args.target_path)
   
   # loop through public files and add referenced images, fix h1 headers and ..
-  for root, dirs, files in os.walk(public_folder_path_copy):
+  for root, dirs, files in os.walk(args.target_path):
     for file in files:
       if file.endswith(".md"):
         file_path = os.path.join(root, file)
-        list_images_from_markdown(file_path)
+        list_images_from_markdown(file_path, args.source_path, args.target_path)
         # print(f"converted: {file_path}")
         
 # TODO find inline tags and add to frontmatter
