@@ -166,7 +166,7 @@ async function drawGraph(baseUrl, isHome, pathColors, graphConfig) {
     .attr("r", nodeRadius)
     .attr("fill", color)
     .style("cursor", "pointer")
-    .on("click", (_, d) => {
+    .on("click", (_, d) => { // TODO only make link work if file exists
       // SPA navigation
       window.Million.navigate(new URL(`${baseUrl}${decodeURI(d.id).replace(/\s+/g, "-")}/`), ".singlePage")
     })
