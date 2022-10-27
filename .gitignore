@@ -10,4 +10,5 @@ content/
 content-source/
 content-source-test/.obsidian/
 .gitignore
-static/attachments/Capture d’écran 2022-10-22 at 13.44.28@2x.jpg
+static/attachments/*
+!static/attachments/.gitkeep

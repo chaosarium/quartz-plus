@@ -39,6 +39,7 @@ test: ## small scale content testing
 regen: ## re-preprocess when testing. Useful when hugo server already running
 	# clear content folder
 	find "content" -type f -delete
+	find "static/attachments" -type f -delete
 
 	#copy test vault to quartz
 	python preprocess.py --source_path "content-source-test" --target_path "content" --target_attachment_path "static/attachments"
@@ -49,6 +50,7 @@ regen: ## re-preprocess when testing. Useful when hugo server already running
 genproduction: ## re-preprocess when testing. Useful when hugo server already running
 	# clear content folder
 	find "content" -type f -delete
+	find "static/attachments" -type f -delete
 
 	#copy test vault to quartz
 	python preprocess.py --source_path "/Users/chaosarium/Library/Mobile Documents/iCloud~md~obsidian/Documents/Zettelkasten" --target_path "content" --target_attachment_path "static/attachments"

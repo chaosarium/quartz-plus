@@ -16,8 +16,8 @@ import frontmatter
 # secondbrain = os.getenv("secondbrain")
 # secondbrain_public = os.getenv("public_secondbrain")
 
-regexp_md_images = "!\[\[(.*?)\]\](.*)\s" # BUG breaks videos it seems
-h1 = "(?m)^# (.*)" # finds entire h1 line
+regexp_md_attachment = r"\[\[((?:.+)\.(?:\S+))\]\]" # attachments (maybe)
+h1_regex = r"(?m)^# (.*)" # finds entire h1 line
 
 def find_and_copy_published(source_path: str, copy_to_path: str):
   """
@@ -26,7 +26,7 @@ def find_and_copy_published(source_path: str, copy_to_path: str):
   """
   for root, dirs, files in os.walk(source_path):
     for file in files:
-      print(file)
+      # print(file)
       if file.endswith(".md"):
         file_path = os.path.join(root, file)
         # use published frontmatter instead
@@ -59,7 +59,7 @@ def add_h1_as_title_frontmatter(file_path: str):
     with open(file_path, "r") as f:
       lines = f.readlines()
       for line in lines:
-        result = re.findall(h1, line)
+        result = re.findall(h1_regex, line)
         # print(result)
         if result:
           print(f"found h1 in {file_path} line: {line}")
@@ -75,24 +75,24 @@ def add_h1_as_title_frontmatter(file_path: str):
         with open(file_path, "wb") as f:
           frontmatter.dump(frontmatter_post, f)
 
-# TODO generalise to attachments
-def find_image_and_copy(image_name: str, root_path: str, target_attachment_path: str):
-  files = glob.glob(root_path + "/**/" + image_name, recursive=True)
+def find_attachment_and_copy(file_name: str, root_path: str, target_attachment_path: str):
+  files = glob.glob(root_path + "/**/" + file_name, recursive=True)
   for file in files:
-    shutil.copy(file, os.path.join(target_attachment_path, image_name))
-    print(f"image `{file}` copied to {target_attachment_path}")
+    shutil.copy(file, os.path.join(target_attachment_path, file_name))
+    print(f"attachment `{file}` copied to {target_attachment_path}")
 
-# TODO generalise to attachments
-def list_images_from_markdown(file_path: str, root_path: str, target_attachment_path: str):
-  # search for images in markdown file
+# KNOWN BUG: [[something 3.0]] identified as file
+def walk_through_markdown_for_attachments(file_path: str, root_path: str, target_attachment_path: str):
+  # search for attachments in markdown file
   file_content = open(file_path, "r").read()
-  images = re.search(regexp_md_images, file_content)
-  if images:
-    for image in images.groups():
-      if image:
-        # find image recursively in folder and copy to public image folder
-        find_image_and_copy(image, root_path, target_attachment_path)
-  # print(f"image: {file_path}, ln: {line}")
+  attachments = re.findall(regexp_md_attachment, file_content)
+  if attachments:
+    print(f"ATTACHMENT SEARCH RESULT for {file_path}", attachments)
+    for attachment in attachments:
+      if attachment:
+        # TODO excalidraw not handelled correctly. Maybe try https://github.com/tommywalkie/excalidraw-cli to turn excalidraw into svg first.
+        # find attachment recursively in folder and copy to public attachment folder
+        find_attachment_and_copy(attachment, root_path, target_attachment_path)
   pass
 
 if __name__ == "__main__":
@@ -105,12 +105,12 @@ if __name__ == "__main__":
   
   find_and_copy_published(args.source_path, args.target_path)
   
-  # loop through public files and add referenced images, fix h1 headers and ..
+  # loop through public files and add referenced attachments, fix h1 headers and ..
   for root, dirs, files in os.walk(args.target_path):
     for file in files:
       if file.endswith(".md"):
         file_path = os.path.join(root, file)
-        list_images_from_markdown(file_path, args.source_path, args.target_attachment_path)
+        walk_through_markdown_for_attachments(file_path, args.source_path, args.target_attachment_path)
         # print(f"converted: {file_path}")
         
 # TODO find inline tags and add to frontmatter
