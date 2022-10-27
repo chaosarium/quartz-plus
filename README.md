@@ -16,11 +16,14 @@ Added features:
 2. Copying attachments from Obsidian to the right place
 3. Some makefile changes for easier testing
 4. Updated theme
+5. Uses first h1 in markdown as hugo title
 
 Roadmap:
 
 - [ ] Excalidraw support
 - [ ] Mermaid support
+- [ ] Fix broken links
+- [ ] Fix orphan not showing up
 - [ ] Photo blog support
 - [ ] Custom home page
 - [ ] Nav bar
