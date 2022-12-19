@@ -1,5 +1,6 @@
 ---
 published: true
+tags: hi
 ---
 
 # Zettel
