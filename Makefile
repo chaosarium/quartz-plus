@@ -1,4 +1,6 @@
 .DEFAULT_GOAL := serve
+TEST_CONTENT_PATH := "content-source-test"
+PROD_CONTENT_PATH := "/Users/chaosarium/Library/Mobile Documents/iCloud~md~obsidian/Documents/Zettelkasten"
 
 build:
 	hugo --cleanDestinationDir --enableGitInfo
@@ -6,48 +8,32 @@ build:
 serve: ## Serve Quartz locally
 	hugo server --enableGitInfo
 
-preprocess: ## prepare commands
-	# clear content folder
+cleanhugo: ## delete output
 	find "content" -type f -delete
+	find "public" -type f -delete
+	find "resources" -type f -delete
+	find "static/attachments" -type f \( -iname "*" ! -iname ".gitkeep" \) -delete
 
-	# copy published notes to quartz
-	python preprocess.py --source_path "content-source-test" --target_path "content" --target_attachment_path "static/attachments"
-	
-	# build indices
+cleancontent: 
+	find "content" -type f -delete
+	find "static/attachments" -type f \( -iname "*" ! -iname ".gitkeep" \) -delete
+
+buildindices: 
 	hugo-obsidian -input=content -output=assets/indices -index -root=. 
 
-
-	# rm -r public
-	# hugo-obsidian -input=content -output=assets/indices -index -root=. 
-	# python utils/lower_case.py #change linkIndex to lowercase for proper linking
+proctest: cleancontent
+	python preprocess.py --source_path "$(TEST_CONTENT_PATH)" --target_path "content" --target_attachment_path "static/attachments"
+procprod: cleancontent
+	#copy test vault to quartz
+	python preprocess.py --source_path "$(PROD_CONTENT_PATH)" --target_path "content" --target_attachment_path "static/attachments"
 
 test: ## small scale content testing
 	make regen
 	open http://localhost:1313/something
 	make serve
 
-regen: ## re-preprocess when testing. Useful when hugo server already running
-	# clear content folder
-	find "content" -type f -delete
-	find "static/attachments" -type f -delete
+gentest: cleancontent proctest buildindices
+genprod: cleancontent procprod buildindices
 
-	#copy test vault to quartz
-	python preprocess.py --source_path "content-source-test" --target_path "content" --target_attachment_path "static/attachments"
-
-	# generate graph
-	hugo-obsidian -input=content -output=assets/indices -index -root=. 
-
-genproduction: ## re-preprocess when testing. Useful when hugo server already running
-	# clear content folder
-	find "content" -type f -delete
-	find "static/attachments" -type f -delete
-
-	#copy test vault to quartz
-	python preprocess.py --source_path "/Users/chaosarium/Library/Mobile Documents/iCloud~md~obsidian/Documents/Zettelkasten" --target_path "content" --target_attachment_path "static/attachments"
-
-	# generate graph
-	hugo-obsidian -input=content -output=assets/indices -index -root=. 
-
-watch: ## regenerates content folder every time file changes
-	make regen
-	fswatch -0 -v -o content-source-test | xargs -0 -n 1 -I {} make regen
+watchtest: gentest ## regenerates content folder every time file changes
+	fswatch -0 -v -o $(TEST_CONTENT_PATH) | xargs -0 -n 1 -I {} make gentest
