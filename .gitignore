@@ -12,3 +12,4 @@ content-source-test/.obsidian/
 .gitignore
 static/attachments/*
 !static/attachments/.gitkeep
+.vscode
