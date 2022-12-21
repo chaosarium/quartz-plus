@@ -21,7 +21,7 @@ Added features:
 Roadmap:
 
 - [ ] Excalidraw support
-- [ ] Mermaid support
+- [x] Mermaid support (implemented by [this PR](https://github.com/jackyzha0/quartz/pull/244))
 - [ ] Fix broken links
 - [ ] Fix orphan not showing up
 - [ ] Photo blog support
