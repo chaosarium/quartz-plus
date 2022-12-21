@@ -22,10 +22,9 @@ buildindices:
 	hugo-obsidian -input=content -output=assets/indices -index -root=. 
 
 proctest: cleancontent
-	python preprocess.py --source_path "$(TEST_CONTENT_PATH)" --target_path "content" --target_attachment_path "static/attachments"
+	python preprocess.py --source_path $(TEST_CONTENT_PATH) --target_path "content" --target_attachment_path "static/attachments"
 procprod: cleancontent
-	#copy test vault to quartz
-	python preprocess.py --source_path "$(PROD_CONTENT_PATH)" --target_path "content" --target_attachment_path "static/attachments"
+	python preprocess.py --source_path $(PROD_CONTENT_PATH) --target_path "content" --target_attachment_path "static/attachments"
 
 test: ## small scale content testing
 	make regen

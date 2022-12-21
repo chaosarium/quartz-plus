@@ -77,6 +77,7 @@ def add_h1_as_title_frontmatter(file_path: str):
 
 def find_attachment_and_copy(file_name: str, root_path: str, target_attachment_path: str):
   files = glob.glob(root_path + "/**/" + file_name, recursive=True)
+  print(files)
   for file in files:
     shutil.copy(file, os.path.join(target_attachment_path, file_name))
     print(f"attachment `{file}` copied to {target_attachment_path}")
@@ -92,7 +93,7 @@ def walk_through_markdown_for_attachments(file_path: str, root_path: str, target
       if attachment:
         # TODO excalidraw not handelled correctly. Maybe try https://github.com/tommywalkie/excalidraw-cli to turn excalidraw into svg first.
         # find attachment recursively in folder and copy to public attachment folder
-        find_attachment_and_copy(attachment, root_path, target_attachment_path)
+        find_attachment_and_copy(os.path.basename(attachment), root_path, target_attachment_path)
   pass
 
 if __name__ == "__main__":
