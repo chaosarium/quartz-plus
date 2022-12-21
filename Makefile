@@ -11,7 +11,7 @@ preprocess: ## prepare commands
 	find "content" -type f -delete
 
 	# copy published notes to quartz
-	python preprocess.py --source_path "content-source/100 Vault" --target_path "content" --target_attachment_path "static/attachments"
+	python preprocess.py --source_path "content-source-test" --target_path "content" --target_attachment_path "static/attachments"
 	
 	# build indices
 	hugo-obsidian -input=content -output=assets/indices -index -root=. 
