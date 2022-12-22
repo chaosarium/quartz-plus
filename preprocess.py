@@ -16,7 +16,7 @@ import frontmatter
 # secondbrain = os.getenv("secondbrain")
 # secondbrain_public = os.getenv("public_secondbrain")
 
-regexp_md_attachment = r"\[\[((?:.+)\.(?:\S+))\]\]" # attachments (maybe)
+regexp_md_attachment = r"\[\[((?:.+)\.(?:\S+))(?:\|\d+)?\]\]" # attachments (maybe)
 h1_regex = r"(?m)^# (.*)" # finds entire h1 line
 
 def find_and_copy_published(source_path: str, copy_to_path: str):
@@ -101,7 +101,7 @@ def find_attachment_and_copy(file_name: str, root_path: str, target_attachment_p
   # print(files)
   for file in files:
     shutil.copy(file, os.path.join(target_attachment_path, file_name))
-    # print(f"attachment `{file}` copied to {target_attachment_path}")
+    print(f"attachment `{file}` copied to {target_attachment_path}")
 
 # BUG: links like [[something 3.0]] are identified as file
 def walk_through_markdown_for_attachments(file_path: str, root_path: str, target_attachment_path: str):
@@ -109,8 +109,10 @@ def walk_through_markdown_for_attachments(file_path: str, root_path: str, target
   file_content = open(file_path, "r").read()
   attachments = re.findall(regexp_md_attachment, file_content)
   if attachments:
-    # print(f"ATTACHMENT SEARCH RESULT for {file_path}", attachments)
+    print(f"ATTACHMENT SEARCH RESULT for {file_path}", attachments)
     for attachment in attachments:
+      attachment = re.sub(r"\|\d+", "", attachment)
+      print(attachment);
       if attachment:
         # TODO excalidraw not handelled correctly. Maybe try https://github.com/tommywalkie/excalidraw-cli to turn excalidraw into svg first.
         # find attachment recursively in folder and copy to public attachment folder
