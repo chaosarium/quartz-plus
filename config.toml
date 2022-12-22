@@ -1,6 +1,7 @@
 baseURL = "https://quartz.jzhao.xyz/"
-languageCode = "en-us"
-googleAnalytics = "G-XYFD95KB4J"
+languageCode = "en"
+defaultContentLanguage = 'en'
+# googleAnalytics = "G-XYFD95KB4J"
 relativeURLs = false
 disablePathToLower = true
 # ignoreFiles = [
@@ -9,7 +10,7 @@ disablePathToLower = true
 # ]
 summaryLength = 20
 paginate = 10
-enableGitInfo = true
+enableGitInfo = false
 disableAliases = true # compatable with obsidian alias
 
 # url management
@@ -39,3 +40,5 @@ disableAliases = true # compatable with obsidian alias
     [markup.goldmark.renderer]
         unsafe = true
         hardWraps = true
+    [markup.goldmark.extensions]
+        typographer = true
