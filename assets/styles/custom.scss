@@ -1,17 +1,18 @@
 // Add your own CSS here!
 
 :root {
-  --light: #faf8f8;
-  --dark: #141021;
-  --secondary: #284b63;
-  --tertiary: #84a59d;
-  --visited: #afbfc9;
-  --primary: #f28482;
+  --light: #ffffff;
+  --dark: #000000;
+  --secondary: #474747;
+  --tertiary: #6e6e6e;
+  --visited: #969696;
+  --primary: #252525;
   --gray: #4e4e4e;
   --lightgray: #f0f0f0;
   --outlinegray: #dadada;
   --million-progress-bar-color: var(--secondary);
   --highlighted: #f5dfaf88;
+  --background-modifier-cover: rgba(244, 244, 244, 0.64);
 }
 
 [saved-theme="dark"] {
@@ -25,7 +26,101 @@
   --lightgray: #292633 !important;
   --outlinegray: #343434 !important;
   --highlighted: #574010;
+  --background-modifier-cover: rgba(0, 0, 0, 0.64);;
 }
 
+// Site title
 
+#page-title > a {
+  color: var(--tertiary);
+  font-weight: 100;
+  letter-spacing: 0.2em;
+  font-family: 'Inter';
+  transition: color 500ms;
+  text-transform: uppercase;
+}
 
+#page-title > a:hover {
+  background: none !important;
+  color: var(--secondary) !important;
+}
+
+// Header
+
+header {
+  & > h1 {
+    font-size: 16px;
+  }
+
+  #search-icon {
+    background-color: transparent;
+  }
+
+  & svg {
+    cursor: pointer;
+    width: 16px;
+    min-width: 16px;
+    margin: 0;
+
+    &:hover .search-path {
+      stroke: var(--secondary);
+    }
+
+    .search-path {
+      stroke: var(--tertiary);
+    }
+  }
+}
+
+.darkmode {
+
+  & svg {
+    cursor: pointer;
+    width: 18px !important;
+    min-width: 18px !important;
+    margin: 0!important;
+
+    fill: var(--tertiary) !important;
+    transition: opacity 0.1s ease;
+
+    &:hover {
+      fill: var(--secondary) !important;
+    }
+
+  }
+}
+
+// code
+
+.chroma code {
+  line-height: inherit !important; 
+}
+
+// popover
+
+.popover {
+  width: 16rem !important;
+  & .meta {
+    display: none;
+  }
+}
+
+// search
+
+#search-container {
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  background-color: var(--background-modifier-cover);
+}
+
+// text
+
+article {
+  & a {
+    &.internal-link {
+      &.broken {
+        cursor: not-allowed;
+      }
+    }
+  }
+}
