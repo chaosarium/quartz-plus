@@ -22,11 +22,9 @@ description:
 page_title:
   "zettelkasten"
 links:
-  - link_name: Twitter
-    link: https://twitter.com/_jzhao
   - link_name: Github
-    link: https://github.com/jackyzha0
-  - link_name: idk
-    link: https://google.com
+    link: https://github.com/chaosarium
+  - link_name: Old Website
+    link: https://chaosarium.netlify.app
 
-textProcessingDebug: true
+textProcessingDebug: false
