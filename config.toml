@@ -8,7 +8,7 @@ disablePathToLower = true
 #     "/content/templates/*",
 #     "/content/private/*",
 # ]
-summaryLength = 20
+summaryLength = 25
 paginate = 10
 enableGitInfo = false
 disableAliases = true # compatable with obsidian alias

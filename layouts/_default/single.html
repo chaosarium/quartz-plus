@@ -9,10 +9,17 @@
     {{partial "header.html" .}}
     <article>
       {{if .Title}}<h1>{{ .Title }}</h1>{{end}}
+
       <p class="meta">
+        {{ if .Date }}
+          Date: {{ partial "date-fmt.html" .}} 
+        {{ end }} 
+      </p>
+
+      {{/*  <p class="meta">
         {{ i18n "last_updated" }} {{ partial "date-fmt.html" .}} 
           {{ partial "github.html" . }}
-      </p>
+      </p>  */}}
       <ul class="tags">
           {{ range (.GetTerms "tags") }}
           <li><a href="{{ .Permalink }}">{{ .LinkTitle | humanize }}</a></li>
@@ -25,3 +32,7 @@
 </div>
 </body>
 </html>
+
+<script>
+  console.log('from single.html')
+</script>

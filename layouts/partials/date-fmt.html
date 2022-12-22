@@ -1,7 +1,7 @@
 {{if .Date}}
-{{.Date.Format "Jan 2, 2006"}}
+{{.Date.Format "2 Jan 2006"}}
 {{else if .Lastmod}}
-{{.Lastmod.Format "Jan 2, 2006"}}
+{{.Lastmod.Format "2 Jan 2006"}}
 {{else}}
-Unknown
+Undated
 {{end}}

@@ -15,6 +15,19 @@
 {{$codeblocks := $raw | findRE "\\x60{3}[^\\x60]+\\x60{3}"}} {{/*  looks for ```blah```  */}}
 {{$code := union $codefences $codeblocks}}
 
+{{/*  Embeds  */}}
+<!-- image with dimension -->
+{{$content = replaceRE `(?i)\!\[\[(.*)\.(jpg|png|jpeg|webp|svg)\|(\d+)\]\]` `<img src="/attachments/${1}.${2}" alt="${1}.${2}" style="max-width: ${3}px">` $content}}
+<!-- image without dimension -->
+{{$content = replaceRE `(?i)\!\[\[(.*)\.(jpg|png|jpeg|webp|svg)\]\]` `<img src="/attachments/${1}.${2}" alt="${1}.${2}">` $content}}
+<!-- audio -->
+{{$content = replaceRE `(?i)\!\[\[(.*)\.(mp3|m4a)\]\]` `<audio controls src="attachments/\1.\2"></audio>` $content}}
+<!-- video -->
+{{$content = replaceRE `(?i)\!\[\[(.*)\.(pdf)\]\]` `<iframe src="attachments/\1.\2" style="width: 100%; height: 60vh;"></iframe>` $content}}
+<!-- pdf -->
+{{$content = replaceRE `(?i)\!\[\[(.*)\.(mp4)\]\]` `<video controls="" src="attachments/\1.\2"></video>` $content}}
+
+
 {{range $wikilinks}}
   {{$cur := .}}
   {{$incode := false}}
@@ -61,7 +74,7 @@
       {{$curpage = $page.GetPage $searchtitle }}
     {{ end }}
 
-    {{$relpath := relURL $path}}
+    {{$relpath := relURL (add "/attachments/" $path)}}
 
     {{if $.Site.Data.config.textProcessingDebug}} {{/*  DEBUG  */}} 
     <span>links</span>
@@ -86,10 +99,10 @@
       {{$link := printf "<a href=\"%s%s\" rel=\"noopener\" class=\"internal-link\" data-src=\"%s\">%s</a>" $href $block $href $display}}
       {{$content = replace $content . $link}}
     <!-- If path to existing file -->
-    {{else if fileExists $relpath}}
+    {{else if os.FileExists (add "/static" $relpath)}}
 
       {{if $.Site.Data.config.textProcessingDebug}} {{/*  DEBUG  */}} 
-      <span>| path to existing file</span>
+      <span style="color: orange;">| path to existing file</span>
       {{end}}
 
       {{$splitpath := split $relpath "/"}}
