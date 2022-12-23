@@ -25,7 +25,9 @@ jobs:
           pip install python_frontmatter==1.0.0
 
       - name: Run Preprocess Script
-        run: python preprocess.py --source_path "content-source-test" --target_path "content" --target_attachment_path "static/attachments" > /dev/null
+        run: |
+          mkdir content
+          python preprocess.py --source_path "content-source-test" --target_path "content" --target_attachment_path "static/attachments" > /dev/null
 
       - name: Build Link Index
         uses: jackyzha0/hugo-obsidian@v2.18
