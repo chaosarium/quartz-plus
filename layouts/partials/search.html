@@ -13,6 +13,6 @@
 <script src="https://cdn.jsdelivr.net/npm/flexsearch@0.7.21/dist/flexsearch.bundle.js"
   integrity="sha256-i3A0NZGkhsKjVMzFxv3ksk0DZh3aXqu0l49Bbh0MdjE=" crossorigin="anonymous" defer></script>
 {{ $js := resources.Get "js/full-text-search.js" | resources.Fingerprint "md5" | resources.Minify }}
-<script defer src="{{ $js.Permalink }}"></script>
+<script defer src="{{ relURL $js.Permalink }}"></script>
 {{end}}
 

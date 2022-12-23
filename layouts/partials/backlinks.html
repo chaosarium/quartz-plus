@@ -1,6 +1,6 @@
 <h3>{{ i18n "backlinks" }}</h3>
 <ul class="backlinks">
-    {{$url := urls.Parse .Site.BaseURL }}
+    {{$url := urls.Parse (relURL .Site.BaseURL) }}
     {{$host := strings.TrimRight "/" $url.Path }}
     {{$curPage := strings.TrimPrefix $host (strings.TrimRight "/" .Page.RelPermalink)}}
     {{$linkIndex := getJSON "/assets/indices/linkIndex.json"}}

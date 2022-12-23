@@ -9,7 +9,7 @@
         <p>website by chaosarium © {{ $year }}</p>
         <ul>
             {{ if not .IsHome }}
-            <li><a href="{{ $.Site.BaseURL}}">{{ i18n "home" }}</a></li>
+            <li><a href="{{ relURL $.Site.BaseURL}}">{{ i18n "home" }}</a></li>
             {{end}}
             {{- range $data.links | default $.Site.Data.config.links -}}
             <li><a href="{{.link}}">{{.link_name}}</a></li>

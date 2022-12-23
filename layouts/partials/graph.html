@@ -16,4 +16,4 @@
   }
 </style>
 {{ $js := resources.Get "js/graph.js" | resources.Fingerprint "md5" }}
-<script src="{{ $js.Permalink }}"></script>
+<script src="{{ relURL $js.Permalink }}"></script>

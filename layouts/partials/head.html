@@ -21,7 +21,7 @@
   {{ $favicon | safeHTML }}
   {{ else }}
   {{ range $favicon }}
-  <link rel="{{.rel}}" {{if .type}}type="{{.type}}"{{end}} {{if .sizes}}sizes="{{.sizes}}"{{end}} href="{{$.Site.BaseURL}}/{{.href}}" />
+  <link rel="{{.rel}}" {{if .type}}type="{{.type}}"{{end}} {{if .sizes}}sizes="{{.sizes}}"{{end}} href="{{relURL $.Site.BaseURL}}{{.href}}" />
   {{- end }}
   {{ end }}
 
@@ -37,17 +37,17 @@
     {{$css = $css | append $scss}}
   {{end}}
   {{$finalCss := $css | resources.Concat "styles.css" | resources.Fingerprint "md5" | resources.Minify  }}
-  <link href="{{$finalCss.Permalink}}" rel="stylesheet" />
+  <link href="{{relURL $finalCss.Permalink}}" rel="stylesheet" />
 
   {{$lightSyntax := resources.Get "styles/_light_syntax.scss" | resources.ToCSS (dict "outputStyle" "compressed") | resources.Fingerprint "md5" | resources.Minify  }}
-  <link href="{{$lightSyntax.Permalink}}" rel="stylesheet" id="theme-link">
+  <link href="{{relURL $lightSyntax.Permalink}}" rel="stylesheet" id="theme-link">
 
    <!-- Base scripts -->
   {{$scripts := (slice "js/darkmode.js" "js/util.js")}}
   {{range $scripts}}
   {{$scriptname := .}}
   {{ $s := resources.Get $scriptname | resources.ExecuteAsTemplate $scriptname . | resources.Fingerprint "md5" | resources.Minify }}
-  <script src="{{$s.Permalink}}"></script>
+  <script src="{{relURL $s.Permalink}}"></script>
   {{end}}
   {{partial "katex.html" .}}
 
@@ -57,22 +57,22 @@
   <script src="https://unpkg.com/@floating-ui/dom@0.5.4"></script>
   {{ $popover := resources.Get "js/popover.js" | resources.Fingerprint "md5" |
   resources.Minify }}
-  <script src="{{$popover.Permalink}}"></script>
+  <script src="{{relURL $popover.Permalink}}"></script>
 
   <!-- Optional scripts -->
   {{ if $data.enableCodeBlockTitle | default $.Site.Data.config.enableCallouts }}
   {{ $codeTitle := resources.Get "js/code-title.js" | resources.Fingerprint "md5" | resources.Minify }}
-  <script src="{{$codeTitle.Permalink}}"></script>
+  <script src="{{relURL $codeTitle.Permalink}}"></script>
   {{end}}
 
   {{ if $data.enableCodeBlockCopy | default $.Site.Data.config.enableCodeBlockCopy }}
   {{ $clipboard := resources.Get "js/clipboard.js" | resources.Fingerprint "md5" | resources.Minify }}
-  <script src="{{$clipboard.Permalink}}"></script>
+  <script src="{{relURL $clipboard.Permalink}}"></script>
   {{ end }}
 
   {{ if $data.enableCallouts | default $.Site.Data.config.enableCallouts }}
   {{ $callouts := resources.Get "js/callouts.js" | resources.Fingerprint "md5" | resources.Minify }}
-  <script src="{{$callouts.Permalink}}"></script>
+  <script src="{{relURL $callouts.Permalink}}"></script>
   {{ end }}
 
   <!--  Preload page vars  -->
@@ -86,13 +86,13 @@
     const PRODUCTION = {{ hugo.IsProduction }}
     const BASE_URL = {{.Site.BaseURL}}
     const fetchData = Promise.all([
-          fetch("{{ $linkIndex.Permalink }}")
+          fetch("{{relURL $linkIndex.Permalink }}")
             .then(data => data.json())
             .then(data => ({
               index: data.index,
               links: data.links,
             })),
-          fetch("{{ $contentIndex.Permalink }}")
+          fetch("{{relURL $contentIndex.Permalink }}")
             .then(data => data.json()),
         ])
         .then(([{index, links}, content]) => ({
