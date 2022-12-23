@@ -23,7 +23,7 @@ Roadmap:
 - [ ] Excalidraw support
 - [x] Mermaid support (implemented by [this PR](https://github.com/jackyzha0/quartz/pull/244))
 - [x] Fix broken links
-- [ ] Fix media embed
+- [x] Fix media embed
 - [ ] Fix orphan not showing up
 - [ ] Don't draw/Draw muted node if file does not exist
 - [ ] Photo blog support

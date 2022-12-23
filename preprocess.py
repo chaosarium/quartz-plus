@@ -94,14 +94,14 @@ def delete_line(file_path: str, line_to_delete: int):
           if number != line_to_delete:
               f.write(line)
   
-  print(f"deleted line {line_to_delete} from {file_path}")
+  # print(f"deleted line {line_to_delete} from {file_path}")
 
 def find_attachment_and_copy(file_name: str, root_path: str, target_attachment_path: str):
   files = glob.glob(root_path + "/**/" + file_name, recursive=True)
   # print(files)
   for file in files:
     shutil.copy(file, os.path.join(target_attachment_path, file_name))
-    print(f"attachment `{file}` copied to {target_attachment_path}")
+    # print(f"attachment `{file}` copied to {target_attachment_path}")
 
 # BUG: links like [[something 3.0]] are identified as file
 def walk_through_markdown_for_attachments(file_path: str, root_path: str, target_attachment_path: str):
@@ -112,7 +112,7 @@ def walk_through_markdown_for_attachments(file_path: str, root_path: str, target
     print(f"ATTACHMENT SEARCH RESULT for {file_path}", attachments)
     for attachment in attachments:
       attachment = re.sub(r"\|\d+", "", attachment)
-      print(attachment);
+      # print(attachment)
       if attachment:
         # TODO excalidraw not handelled correctly. Maybe try https://github.com/tommywalkie/excalidraw-cli to turn excalidraw into svg first.
         # find attachment recursively in folder and copy to public attachment folder

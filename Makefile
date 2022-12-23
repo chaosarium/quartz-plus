@@ -2,7 +2,7 @@
 TEST_CONTENT_PATH := "content-source-test"
 PROD_CONTENT_PATH := "/Users/chaosarium/Library/Mobile Documents/iCloud~md~obsidian/Documents/Zettelkasten"
 
-build:
+build: cleanhugo genprod
 	hugo --cleanDestinationDir --enableGitInfo
 
 serve: ## Serve Quartz locally
@@ -22,8 +22,13 @@ buildindices:
 	hugo-obsidian -input=content -output=assets/indices -index -root=. 
 
 proctest: cleancontent
-	python preprocess.py --source_path $(TEST_CONTENT_PATH) --target_path "content" --target_attachment_path "static/attachments"
+	python preprocess.py --source_path $(TEST_CONTENT_PATH) --target_path "content" --target_attachment_path "static/attachments" >/dev/null
 procprod: cleancontent
+	python preprocess.py --source_path $(PROD_CONTENT_PATH) --target_path "content" --target_attachment_path "static/attachments" >/dev/null
+
+proctestverbose: cleancontent
+	python preprocess.py --source_path $(TEST_CONTENT_PATH) --target_path "content" --target_attachment_path "static/attachments"
+procprodverbose: cleancontent
 	python preprocess.py --source_path $(PROD_CONTENT_PATH) --target_path "content" --target_attachment_path "static/attachments"
 
 gentest: cleancontent proctest buildindices
