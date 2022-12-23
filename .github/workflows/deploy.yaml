@@ -1,9 +1,10 @@
 name: Deploy to GitHub Pages
 
-on:
-  push:
-    branches:
-      - hugo
+on: workflow_dispatch
+# on:
+#   push:
+#     branches:
+#       - hugo
 
 jobs:
   deploy:
@@ -12,6 +13,19 @@ jobs:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.9
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install python_frontmatter==1.0.0
+
+      - name: Run Preprocess Script
+        run: python preprocess.py --source_path "content-source-test" --target_path "content" --target_attachment_path "static/attachments" > /dev/null
 
       - name: Build Link Index
         uses: jackyzha0/hugo-obsidian@v2.18
@@ -30,10 +44,10 @@ jobs:
       - name: Build
         run: hugo --minify
 
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./public
-          publish_branch: master  # deploying branch
-          cname: quartz.jzhao.xyz
+      # - name: Deploy
+      #   uses: peaceiris/actions-gh-pages@v3
+      #   with:
+      #     github_token: ${{ secrets.GITHUB_TOKEN }}
+      #     publish_dir: ./public
+      #     publish_branch: master  # deploying branch
+      #     cname: quartz.jzhao.xyz
