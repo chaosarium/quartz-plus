@@ -9,13 +9,13 @@ serve: ## Serve Quartz locally
 	hugo server --enableGitInfo
 
 cleanhugo: ## delete output
-	find "content" -type f -delete
+	find "content" -type f \( -iname "*" ! -iname ".gitkeep" \) -delete
 	find "public" -type f -delete
 	find "resources" -type f -delete
 	find "static/attachments" -type f \( -iname "*" ! -iname ".gitkeep" \) -delete
 
 cleancontent: 
-	find "content" -type f -delete
+	find "content" -type f \( -iname "*" ! -iname ".gitkeep" \) -delete
 	find "static/attachments" -type f \( -iname "*" ! -iname ".gitkeep" \) -delete
 
 buildindices: 
