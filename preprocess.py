@@ -46,36 +46,41 @@ def find_and_copy_published(source_path: str, copy_to_path: str):
           )
           
           # add h1 as title frontmatter if none exists
-          add_h1_as_title_frontmatter(
+          add_h1_or_filename_as_title_frontmatter(
             os.path.join(copy_to_path, file)
           )
 
-def add_h1_as_title_frontmatter(file_path: str):
+def add_h1_or_filename_as_title_frontmatter(file_path: str):
   # print(f"start converting {file_path}")
   with open(file_path, "r") as f:
+    frontmatter_post = frontmatter.load(f)
+    if not "title" in frontmatter_post.keys():
 
-    # read line by line and search for h1
-    # copy text of h1
-    with open(file_path, "r") as f:
-      lines = f.readlines()
-      for i, line in enumerate(lines):
-        result = re.findall(h1_regex, line)
-        # print(result)
-        if result:
-          # print(f"found h1 in {file_path} line: {line}")
-          break
-
-    # put in frontmatter and delete h1 line if any
-    if len(result) > 0:
+      # read line by line and search for h1
       with open(file_path, "r") as f:
-        frontmatter_post = frontmatter.load(f)
-        if not "title" in frontmatter_post.keys():
-          # add h1 header to `title` to frontmatter
-          frontmatter_post["title"] = result[0]
+        lines = f.readlines()
+        for i, line in enumerate(lines):
+          result = re.findall(h1_regex, line)
+          if result:
+            # print(f"found h1 in {file_path} line: {line}")
+            
+            # put in frontmatter and delete h1 line if any
+            # add h1 header to `title` to frontmatter
+            frontmatter_post["title"] = result[0]
+            # overwrite current file with added title
+            with open(file_path, "wb") as f:
+              frontmatter.dump(frontmatter_post, f)
+            delete_line(file_path, i+1)
+            break
+        if not result:
+          # none found, use filename
+          frontmatter_post["title"] = Path(file_path).stem
           # overwrite current file with added title
           with open(file_path, "wb") as f:
             frontmatter.dump(frontmatter_post, f)
-          delete_line(file_path, i+1)
+
+          
+
 
 def delete_line(file_path: str, line_to_delete: int):
   # from https://pynative.com/python-delete-lines-from-file/
