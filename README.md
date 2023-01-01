@@ -17,15 +17,18 @@ Added features:
 3. Some makefile changes for easier testing
 4. Updated theme
 5. Uses first h1 in markdown as hugo title
+6. Postprocessing script to clean up graph
 
 Roadmap:
 
 - [ ] Excalidraw support
 - [x] Mermaid support (implemented by [this PR](https://github.com/jackyzha0/quartz/pull/244))
 - [x] Fix broken links
+- [x] Title generation
+- [x] Publishing control
 - [x] Fix media embed
 - [ ] Fix orphan not showing up
-- [ ] Don't draw/Draw muted node if file does not exist
+- [x] Don't draw/Draw muted node if file does not exist
 - [ ] Photo blog support
 - [ ] Custom home page
 - [ ] Nav bar

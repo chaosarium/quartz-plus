@@ -26,13 +26,18 @@ proctest: cleancontent
 procprod: cleancontent
 	python preprocess.py --source_path $(PROD_CONTENT_PATH) --target_path "content" --target_attachment_path "static/attachments" >/dev/null
 
+postprocess:
+	python postprocess.py
+
 proctestverbose: cleancontent
 	python preprocess.py --source_path $(TEST_CONTENT_PATH) --target_path "content" --target_attachment_path "static/attachments"
 procprodverbose: cleancontent
 	python preprocess.py --source_path $(PROD_CONTENT_PATH) --target_path "content" --target_attachment_path "static/attachments"
 
-gentest: cleancontent proctest buildindices
-genprod: cleancontent procprod buildindices
+gentest: cleancontent proctest buildindices postprocess
+genprod: cleancontent procprod buildindices postprocess
 
 watchtest: gentest ## regenerates content folder every time file changes
 	fswatch -0 -v -o $(TEST_CONTENT_PATH) | xargs -0 -n 1 -I {} make gentest
+
+test: buildindices postprocess
