@@ -28,6 +28,7 @@ graph TD;
 
 [[zettel]]
 
-[[lonely 1]]
 
 This is some ==highlighted text== aiernt i ieanrs t.
+
+[[Format testing page]]

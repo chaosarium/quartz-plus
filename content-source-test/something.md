@@ -1,12 +1,13 @@
 ---
 published: true
+layout: "blank"
 ---
 
 # Something
 
 This links to the [[zettel]] page? or does it?
 
-[[//|home]]
+[[_index]]
 
 This line has a footnote [^1].
 

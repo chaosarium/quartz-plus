@@ -2,7 +2,6 @@
 published: true
 ---
 
-this is linked to [[lonely 1]]
 
 What if link to itself [[lonely 2]]
 
