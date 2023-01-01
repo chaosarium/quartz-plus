@@ -60,8 +60,6 @@ def strip_name(s) -> str:
           )
 
 def md_file_existence_heuristic(existing_files_set, encoded_url) -> bool:
-  if encoded_url == "/":
-    return True
   return strip_name(encoded_url) in existing_files_set
 
 data = load_json(INDEX_FILE)
@@ -82,26 +80,42 @@ for key in links_index.keys():
   if md_file_existence_heuristic(existing_files, key):
     processed_data["index"]["links"][key] = []
   else:
+    # print(f'removing {key}')
     continue
   for i, entry in enumerate(links_index[key]):
-    if md_file_existence_heuristic(existing_files, entry["target"]) and entry["target"] != "/":
+    if md_file_existence_heuristic(existing_files, entry["target"]):
       processed_data["index"]["links"][key] += [entry]
+    else:
+      # print(f'removing {entry}')
+      continue
       
 for key in backlinks_index.keys():
   if md_file_existence_heuristic(existing_files, key):
     processed_data["index"]["backlinks"][key] = []
   else:
+    # print(f'removing {key}')
     continue
   for i, entry in enumerate(backlinks_index[key]):
-    if md_file_existence_heuristic(existing_files, entry["target"]) and entry["target"] != "/":
+    if md_file_existence_heuristic(existing_files, entry["target"]):
       processed_data["index"]["backlinks"][key] += [entry]
+    else:
+      # print(f'removing {entry}')
+      continue
       
 for i, entry in enumerate(links_list):
-  if md_file_existence_heuristic(existing_files, entry["target"]) and md_file_existence_heuristic(existing_files, entry["source"]):
+  if md_file_existence_heuristic(existing_files, entry["target"]) and ((entry["source"] == "/") or md_file_existence_heuristic(existing_files, entry["source"])):
     processed_data["links"] += [entry]
-    
+  else:
+    # print(f'removing {entry}') 
+    continue
+
 json_object = json.dumps(processed_data, indent=2)
 
 # Writing to sample.json
 with open("./assets/indices/linkIndex.json", "w") as outfile:
   outfile.write(json_object)
+
+# Print summary
+print(f'POSTPROCESS: removed {len(data["index"]["links"]) - len(processed_data["index"]["links"])} false outbound links from index of {len(data["index"]["links"])} links')
+print(f'POSTPROCESS: removed {len(data["index"]["backlinks"]) - len(processed_data["index"]["backlinks"])} false backlinks from index of {len(data["index"]["backlinks"])} links')
+print(f'POSTPROCESS: removed {len(data["links"]) - len(processed_data["links"])} false links of {len(data["links"])} links')
