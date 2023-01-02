@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="{{ .Lang }}">
+{{ partial "head.html" . }}
+
+<body>
+<div class="blankPage">
+  <article>
+    {{if .Title}}<h1>{{ .Title }}</h1>{{end}}
+    {{partial "textprocessing.html" . }}
+  </article>
+</div>
+</body>
+</html>
+
+<script>
+  console.log('from blank.html')
+</script>

@@ -1,5 +1,5 @@
 // Replace this with your own font imports!
-@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&family=Inter:wght@200;400;600;700&family=Source+Sans+Pro:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&family=Inter:wght@200;300;400;600;700&family=Source+Sans+Pro:wght@400;600&display=swap');
 :root {
   --font-body: "Source Sans Pro";
   --font-header: "Inter";
@@ -20,11 +20,26 @@ html {
   }
 }
 
+// layout
 .singlePage {
-  padding: 4em 30vw;
-  @media all and (max-width: 1200px) {
-    padding: 25px 5vw;
-  }
+  padding: 30px 5vw;
+  max-width: 40em;
+  margin: 0 auto;
+  // @media all and (min-width: 1200px) {
+  //   padding: 4em 5vw;
+  // }
+}
+.widePage {
+  padding: 30px 5vw;
+  max-width: 50em;
+  margin: 0 auto;
+  // @media all and (min-width: 1200px) {
+  //   padding: 4em 5vw;
+  // }
+}
+.blankPage {
+  padding: 0;
+  margin: 0 auto;
 }
 
 
@@ -41,8 +56,8 @@ h1, h2, h3, h4, h5, h6, thead {
   font-family: var(--font-header);
   color: var(--dark);
   font-weight: revert;
-  margin: 2rem 0 0;
-  padding: 2rem auto 1rem;
+  margin: 1.5rem 0 0;
+  padding: 1.5rem auto 1rem;
 
   &:hover > .hanchor {
     color: var(--secondary);
@@ -179,8 +194,8 @@ blockquote {
 }
 
 article {
-  & > h1 {
-    margin-top: 2em;
+  & > h1:first-of-type {
+    margin-top: 36px;
     font-size: 2em;
   }
   
@@ -194,7 +209,7 @@ article {
 
     &.internal-link {
       text-decoration: none;
-      background-color: transparentize(#8f9fa9, 0.85);
+      background-color: var(--link-background-color);
       padding: 0 0.1em;
       margin: auto -0.1em;
       border-radius: 3px;
@@ -202,6 +217,7 @@ article {
       &.broken {
         opacity: 0.5;
         background-color: transparent; 
+        cursor: not-allowed;
       }
     }
   }
@@ -291,11 +307,14 @@ code {
 }
 
 footer {
-  margin-top: 4em;
+  margin-top: 2em;
   text-align: center;
   & ul {
     padding-left: 0;
   } 
+  .footer-divider {
+    margin-bottom: 1em;
+  }
 }
 
 hr {
@@ -359,11 +378,25 @@ hr {
 header {
   display: flex;
   flex-direction: row;
+  gap: 1em;
   align-items: center;
-  margin: 1em 0 2em;
+  margin: 1em 0 1em;
 
-  & > h1 {
-    font-size: 2em;
+  & > h1#page-title {
+    font-size: 12px;
+    
+    & > a {
+      color: var(--tertiary);
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      font-family: 'Inter';
+      transition: color 500ms;
+      text-transform: uppercase;
+      &:hover {
+        background: none;
+        color: var(--secondary);
+      }
+    }
   }
 
   & > nav {
@@ -373,9 +406,7 @@ header {
   }
 
   #search-icon {
-    background-color: var(--lightgray);
     border-radius: 4px;
-    height: 2em;
     display: flex;
     align-items: center;
     cursor: pointer;
@@ -387,18 +418,12 @@ header {
 
   & svg {
     cursor: pointer;
-    width: 18px;
-    min-width: 18px;
-    margin: 0 0.5em;
+    width: 12px;
+    min-width: 12px;
+    fill: var(--tertiary);
 
-    &:hover .search-path {
-      stroke: var(--tertiary);
-    }
-
-    .search-path {
-      stroke: var(--gray);
-      stroke-width: 2px;
-      transition: stroke 0.5s ease;
+    &:hover {
+      fill: var(--secondary);
     }
   }
 }
@@ -412,8 +437,9 @@ header {
   height: 100%;
   overflow: scroll;
   display: none;
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  background-color: var(--background-modifier-cover);
 
   & > div {
     width: 50%;
@@ -557,7 +583,7 @@ header {
 .popover {
   z-index: 999;
   position: absolute;
-  width: 20rem;
+  width: 16rem;
   display: none;
   background-color: var(--light);
   padding: 1rem;
@@ -591,6 +617,7 @@ header {
     opacity: 0.5;
     font-family: var(--font-mono);
     font-size: 0.8rem;
+    display: none;
   }
 
   & > p {

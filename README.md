@@ -13,11 +13,12 @@ Existing features:
 Added features:
 
 1. Preprocessing script for better Obsidian valut integration and publishing control (use "publish: true" in yaml frontmatter to whitelist files)
-2. Copying attachments from Obsidian to the right place
-3. Some makefile changes for easier testing
-4. Updated theme
-5. Uses first h1 in markdown as hugo title
-6. Postprocessing script to clean up graph
+2. Copying attachments from Obsidian to the right place (thereby supporting wikilink without leading folder path)
+4. Support wikilink media embed like Obsidian does
+5. Some makefile changes for easier testing
+6. Updated theme
+7. Uses first h1 in markdown as hugo title
+8. Postprocessing script to clean up graph so that non-existent links or nodes don't show up
 
 Roadmap:
 
@@ -27,14 +28,14 @@ Roadmap:
 - [x] Title generation
 - [x] Publishing control
 - [x] Fix media embed
-- [ ] Fix orphan not showing up
+- [ ] Fix orphan not showing up (partially fixed)
 - [x] Don't draw/Draw muted node if file does not exist
-- [ ] Photo blog support
 - [ ] Custom home page
 - [ ] Nav bar
 - [ ] Sidenotes
-- [ ] Table of content on sidebar
+- [ ] Table of content on sidebar (inspiration -> )
 - [ ] Obsidian inline tag support
+- [ ] Footnotes as signnotes (inspiration -> https://github.com/capnfabs/paperesque)
 
 ---
 

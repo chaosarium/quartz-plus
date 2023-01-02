@@ -32,7 +32,7 @@ globalGraph:
     repelForce: 0.1
     centerForce: 0.9
     linkDistance: 40
-    distanceMax: 100
+    distanceMax: 60
     linkStrength: 1
 
 ### For all graphs ###

@@ -107,14 +107,20 @@ async function drawGraph(baseUrl, isHome, pathColors, graphConfig) {
 
   const simulation = d3
     .forceSimulation(data.nodes)
-    .force("charge", d3.forceManyBody().strength(-100 * repelForce).distanceMax(distanceMax))
+    .force("charge", 
+      d3
+        .forceManyBody()
+        .strength(-40)
+        .distanceMax(distanceMax)
+        .distanceMin(0.01)
+    )
     .force(
       "link",
       d3
         .forceLink(data.links)
         .id((d) => d.id)
         .distance(linkDistance)
-        .strength(linkStrength),
+        .strength(linkStrength)
     )
     .force("center", d3.forceCenter().strength(centerForce))
 
@@ -163,6 +169,7 @@ async function drawGraph(baseUrl, isHome, pathColors, graphConfig) {
 
   // calculate radius
   const nodeRadius = (d) => {
+    if (d.id === "/") return 4;
     const numOut = index.links[d.id]?.length || 0
     const numIn = index.backlinks[d.id]?.length || 0
     return (2 + Math.log(numOut + numIn + 1) * 0.6)

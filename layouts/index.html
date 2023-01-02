@@ -4,7 +4,7 @@
 
 <body>
 {{partial "search.html" .}}
-<div class="singlePage">
+<div class="widePage">
     <!-- Begin actual content -->
     {{partial "header.html" .}}
     <article>
@@ -15,6 +15,56 @@
         {{end}}
     </article>
     {{partial "footerIndex.html" .}}
+
+    <div style="outline: 1px solid rgba(255, 150, 150, 0.557); display: _none">
+      <h2>experiments</h2>
+      <h2>Recent blog posts</h2>
+      {{$blog_posts := index (index .Site.Taxonomies.tags "Blog-2.0").Pages}}
+      <ul class="delay stagger">
+          {{range first 3 $blog_posts }}
+          <li>
+              <div class="section">
+                  <div class="desc">
+                      <h3><a href="{{ .Permalink }}">{{- .Title -}}</a></h3>
+                  </div>
+                  <p class="meta">
+                  {{.WordCount}} words, {{partial "date-fmt.html" .}} 
+                  </p>
+                  {{partial "tags.html" .}}
+              </div>
+          </li>
+          {{end}}
+      </ul>
+      <a href="/tags/hi">See {{sub (len $blog_posts) 3}} more →</a>
+  
+      <h2>Taxonomy structure</h2>
+      <ul>
+        {{ range $taxonomy, $terms := site.Taxonomies }}
+          <li>
+            {{ with site.GetPage $taxonomy }}
+              <a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
+            {{ end }}
+            <ul>
+              {{ range $term, $weightedPages := $terms }}
+              <li>
+                {{ with site.GetPage (path.Join $taxonomy $term) }}
+                  <a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
+                {{ end }}
+              </li>
+                <ul>
+                  {{ range $weightedPages }}
+                    <li>
+                      <a href="{{ .RelPermalink}}"> {{ .LinkTitle }}</a>
+                    </li>
+                  {{ end }}
+                </ul>
+              {{ end }}
+            </ul>
+          </li>
+        {{ end }}
+      </ul>
+    </div>
+
 </div>
 </body>
 </html>
@@ -25,3 +75,7 @@
   console.log('Hugo Debug: ', JSON.parse({{ jsonify .Site }}))
 </script>
 {{end}}
+
+<script>
+  console.log('from index.html')
+</script>

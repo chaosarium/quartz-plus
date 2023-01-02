@@ -1,6 +1,6 @@
 
 
-<hr/>
+<hr class="footer-divider"/>
 
 {{if $.Site.Data.config.enableFooter}}
 <div class="page-end" id="footer">
@@ -8,6 +8,7 @@
         {{partial "backlinks.html" .}}
     </div>
     <div>
+        <h3>Local Graph</h3>
         {{partial "graph.html" .}}
     </div>
 </div>
