@@ -20,6 +20,8 @@ Basic idea:
   - get rid of link that don't correspond to file in "content"
 
 Also, Obsidian-Hugo seems to mistake internal block or section references as references to root, so all links target at "/" will get removed
+
+Fix missing orphans by adding self link
 """
 
 import json
@@ -42,6 +44,8 @@ def load_json(path) -> dict:
 def strip_name(s) -> str:
   # gets rid of symbols, spaces, etc.
   return (s.replace(".md", "")
+          .replace("?", "")
+          .replace("!", "")
           .replace("/", "")
           .replace(" ",  "")
           .replace("-",  "")
@@ -76,6 +80,9 @@ processed_data =  {"index": {
                     "links": [],
                   }
 
+
+# === Remove false links ===
+
 for key in links_index.keys():
   if md_file_existence_heuristic(existing_files, key):
     processed_data["index"]["links"][key] = []
@@ -109,13 +116,34 @@ for i, entry in enumerate(links_list):
     # print(f'removing {entry}') 
     continue
 
-json_object = json.dumps(processed_data, indent=2)
-
-# Writing to sample.json
-with open("./assets/indices/linkIndex.json", "w") as outfile:
-  outfile.write(json_object)
-
-# Print summary
+# Print deletion summary
 print(f'POSTPROCESS: removed {len(data["index"]["links"]) - len(processed_data["index"]["links"])} false outbound links from index of {len(data["index"]["links"])} links')
 print(f'POSTPROCESS: removed {len(data["index"]["backlinks"]) - len(processed_data["index"]["backlinks"])} false backlinks from index of {len(data["index"]["backlinks"])} links')
 print(f'POSTPROCESS: removed {len(data["links"]) - len(processed_data["links"])} false links of {len(data["links"])} links')
+
+
+
+# === fix orphans ===
+linked_nodes = set([entry["source"] for entry in processed_data["links"]]).union(set([entry["target"] for entry in processed_data["links"]]))
+orphans_added = 0
+
+for key in links_index.keys():
+  if key not in linked_nodes:
+    processed_data["links"] += [{
+      "source": key,
+      "target": key,
+      "text": key
+    }]
+    orphans_added += 1
+    # print(f"add self link for {key}")
+
+print(f'POSTPROCESS: added {orphans_added} orphans to the graph')
+# BUG doen't work if orphan is orphan in Obsidian. i.e. only work for those orphaned because of false link removal
+
+# Writing to sample.json
+json_object = json.dumps(processed_data, indent=2)
+with open("./assets/indices/linkIndex.json", "w") as outfile:
+  outfile.write(json_object)
+
+print(md_file_existence_heuristic(existing_files, "/2022-07-17-Art-by-AI-Some-Initial-Experimentation"))
+print(strip_name("2022-07-17 Art by AI? Some Initial Experimentation"))
