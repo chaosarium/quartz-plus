@@ -165,7 +165,7 @@ async function drawGraph(baseUrl, isHome, pathColors, graphConfig) {
   const nodeRadius = (d) => {
     const numOut = index.links[d.id]?.length || 0
     const numIn = index.backlinks[d.id]?.length || 0
-    return 2.5 + Math.log(numOut + numIn) * 0.4
+    return (2 + Math.log(numOut + numIn + 1) * 0.6)
   }
 
   // draw individual nodes
@@ -200,7 +200,7 @@ async function drawGraph(baseUrl, isHome, pathColors, graphConfig) {
       // highlight links
       linkNodes.transition().duration(200).attr("stroke", "var(--g-link-active)")
 
-      const bigFont = fontSize*1.5
+      const bigFont = fontSize*1.3
 
       // show text for self
       d3.select(this.parentNode)
@@ -211,7 +211,7 @@ async function drawGraph(baseUrl, isHome, pathColors, graphConfig) {
         .attr('opacityOld', d3.select(this.parentNode).select('text').style("opacity"))
         .style('opacity', 1)
         .style('font-size', bigFont+'em')
-        .attr('dy', d => nodeRadius(d) + 20 + 'px') // radius is in px
+        .attr('dy', d => nodeRadius(d) + 10 + 'px') // radius is in px
     })
     .on("mouseleave", function (_, d) {
       d3.selectAll(".node").transition().duration(200).attr("fill", color)

@@ -10,14 +10,14 @@ localGraph:
     enableDrag: true
     enableZoom: true
     depth: 1 # set to -1 to show full graph
-    scale: 1.2
+    scale: 1.6
     fontSize: 0.5
     opacityScale: 3
-    repelForce: 0.1
-    centerForce: 0.8
-    linkDistance: 40
+    repelForce: 0.7
+    centerForce: 0.4
+    linkDistance: 50
     distanceMax: 200
-    linkStrength: 0.9
+    linkStrength: 1
 
 ### Global Graph ###
 
@@ -26,13 +26,13 @@ globalGraph:
     enableDrag: true
     enableZoom: true
     depth: -1 # set to -1 to show full graph
-    scale: 1
+    scale: 1.4
     fontSize: 0.3
     opacityScale: 2
     repelForce: 0.1
-    centerForce: 0.8
+    centerForce: 0.9
     linkDistance: 40
-    distanceMax: 200
+    distanceMax: 100
     linkStrength: 1
 
 ### For all graphs ###
