@@ -2,7 +2,6 @@ const userPref = window.matchMedia('(prefers-color-scheme: light)').matches ? 'l
 const currentTheme = localStorage.getItem('theme') ?? userPref
 const syntaxTheme = document.querySelector("#theme-link");
 
-
 {{ $darkSyntax := resources.Get "styles/_dark_syntax.scss" | resources.ToCSS (dict "outputStyle" "compressed") | resources.Fingerprint "md5" | resources.Minify  }}
 {{ $lightSyntax := resources.Get "styles/_light_syntax.scss" | resources.ToCSS (dict "outputStyle" "compressed") | resources.Fingerprint "md5" | resources.Minify  }}
 
@@ -11,13 +10,15 @@ if (currentTheme) {
   syntaxTheme.href = currentTheme === 'dark' ?  '{{ relURL $darkSyntax.Permalink }}' :  '{{ relURL $lightSyntax.Permalink }}';
 }
 
-const switchTheme = (e) => {
-  if (e.target.checked) {
-    document.documentElement.setAttribute('saved-theme', 'dark');
+const switchTheme = () => {
+  var currentTheme = document.documentElement.getAttribute("saved-theme");
+
+  if (currentTheme === "light") {
+    document.documentElement.setAttribute('saved-theme', 'dark')
     localStorage.setItem('theme', 'dark');
     syntaxTheme.href = '{{ relURL $darkSyntax.Permalink }}';
-  }
-  else {
+
+  } else {
     document.documentElement.setAttribute('saved-theme', 'light')
     localStorage.setItem('theme', 'light')
     syntaxTheme.href = '{{ relURL $lightSyntax.Permalink }}';
@@ -25,13 +26,6 @@ const switchTheme = (e) => {
 }
 
 window.addEventListener('DOMContentLoaded', () => {
-  // Darkmode toggle
-  const toggleSwitch = document.querySelector('#darkmode-toggle')
-
-  // listen for toggle
-  toggleSwitch.addEventListener('change', switchTheme, false)
-
-  if (currentTheme === 'dark') {
-    toggleSwitch.checked = true
-  }
+  document.querySelector('#toggle-label-light').addEventListener('click', switchTheme, false)
+  document.querySelector('#toggle-label-dark').addEventListener('click', switchTheme, false)
 })
