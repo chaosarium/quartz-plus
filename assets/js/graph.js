@@ -1,14 +1,21 @@
 async function drawGraph(baseUrl, isHome, pathColors, graphConfig) {
 
   let {
-  depth,
-  enableDrag,
-  enableLegend,
-  enableZoom,
-  opacityScale,
-  scale,
-  repelForce,
-  fontSize} = graphConfig;
+    depth,
+    enableDrag,
+    enableLegend,
+    enableZoom,
+    opacityScale,
+    scale,
+    repelForce,
+    linkDistance,
+    distanceMax,
+    linkStrength,
+    centerForce,
+    fontSize
+  } = graphConfig;
+
+  console.log(graphConfig);
 
   const container = document.getElementById("graph-container")
   const { index, links, content } = await fetchData
@@ -25,6 +32,7 @@ async function drawGraph(baseUrl, isHome, pathColors, graphConfig) {
   // Links is mutated by d3. We want to use links later on, so we make a copy and pass that one to d3
   // Note: shallow cloning does not work because it copies over references from the original array
   const copyLinks = JSON.parse(JSON.stringify(links))
+  console.log(copyLinks)
 
   const neighbours = new Set()
   const wl = [curPage || "/", "__SENTINEL"]
@@ -48,6 +56,7 @@ async function drawGraph(baseUrl, isHome, pathColors, graphConfig) {
 
   const data = {
     nodes: [...neighbours].map((id) => ({ id })),
+    // links: copyLinks,
     links: copyLinks.filter((l) => neighbours.has(l.source) && neighbours.has(l.target)),
   }
 
@@ -98,15 +107,16 @@ async function drawGraph(baseUrl, isHome, pathColors, graphConfig) {
 
   const simulation = d3
     .forceSimulation(data.nodes)
-    .force("charge", d3.forceManyBody().strength(-100 * repelForce))
+    .force("charge", d3.forceManyBody().strength(-100 * repelForce).distanceMax(distanceMax))
     .force(
       "link",
       d3
         .forceLink(data.links)
         .id((d) => d.id)
-        .distance(40),
+        .distance(linkDistance)
+        .strength(linkStrength),
     )
-    .force("center", d3.forceCenter())
+    .force("center", d3.forceCenter().strength(centerForce))
 
   const svg = d3
     .select("#graph-container")
@@ -144,7 +154,7 @@ async function drawGraph(baseUrl, isHome, pathColors, graphConfig) {
     .join("line")
     .attr("class", "link")
     .attr("stroke", "var(--g-link)")
-    .attr("stroke-width", 2)
+    .attr("stroke-width", 1)
     .attr("data-source", (d) => d.source.id)
     .attr("data-target", (d) => d.target.id)
 
@@ -155,7 +165,7 @@ async function drawGraph(baseUrl, isHome, pathColors, graphConfig) {
   const nodeRadius = (d) => {
     const numOut = index.links[d.id]?.length || 0
     const numIn = index.backlinks[d.id]?.length || 0
-    return 2 + Math.sqrt(numOut + numIn)
+    return 2.5 + Math.log(numOut + numIn) * 0.4
   }
 
   // draw individual nodes
@@ -166,7 +176,7 @@ async function drawGraph(baseUrl, isHome, pathColors, graphConfig) {
     .attr("r", nodeRadius)
     .attr("fill", color)
     .style("cursor", "pointer")
-    .on("click", (_, d) => { // TODO only make link work if file exists
+    .on("click", (_, d) => {
       // SPA navigation
       window.Million.navigate(new URL(`${baseUrl}${decodeURI(d.id).replace(/\s+/g, "-")}/`), ".singlePage")
     })
