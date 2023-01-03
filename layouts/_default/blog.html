@@ -26,7 +26,9 @@
       {{partial "toc.html" .}}
       {{partial "textprocessing.html" . }}
     </article>
-    {{ partial "chunker.html" . }}
+    {{ $js := resources.Get "js/chunker.js" | resources.ExecuteAsTemplate "js/chunker.js" . | resources.Fingerprint "md5" | resources.Minify }}
+    <script defer type="module" src="{{ $js.Permalink }}"></script>
+
     {{partial "footer.html" .}}
 
 </div>
