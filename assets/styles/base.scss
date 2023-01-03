@@ -20,29 +20,6 @@ html {
   }
 }
 
-// layout
-.singlePage {
-  padding: 30px 5vw;
-  max-width: 40em;
-  margin: 0 auto;
-  // @media all and (min-width: 1200px) {
-  //   padding: 4em 5vw;
-  // }
-}
-.widePage {
-  padding: 30px 5vw;
-  max-width: 50em;
-  margin: 0 auto;
-  // @media all and (min-width: 1200px) {
-  //   padding: 4em 5vw;
-  // }
-}
-.blankPage {
-  padding: 0;
-  margin: 0 auto;
-}
-
-
 body {
   margin: 0;
   height: 100vh;
@@ -82,51 +59,6 @@ p, ul, text, a, tr, td, li, ol, ul {
 
 tbody, li, p {
   line-height: 1.5em;
-}
-
-.mainTOC {
-  border-radius: 5px;
-  padding: 0.75em 0;
-
-  & details {
-    & summary {
-      cursor: zoom-in;
-      font-family: var(--font-header);
-      color: var(--dark);
-      font-weight: 700;
-    }
-
-    &[open] summary {
-      cursor: zoom-out;
-    }
-  }
-}
-
-#TableOfContents > ol {
-  counter-reset: section;
-  margin-left: 0em;
-  padding-left: 1.5em;
-  & > li {
-    counter-increment: section;
-    & > ol {
-      counter-reset: subsection;
-      & > li {
-        counter-increment: subsection;
-        &::marker {
-          content: counter(section) "." counter(subsection) "  ";
-        }
-      }
-    }
-  }
-
-  & > li::marker {
-    content: counter(section) "  ";
-  }
-
-  & > li::marker, & > li > ol > li::marker {
-    font-family: var(--font-body);
-    font-weight: 700;
-  }
 }
 
 table {

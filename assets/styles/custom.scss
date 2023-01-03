@@ -30,3 +30,17 @@
   --background-modifier-cover: rgba(0, 0, 0, 0.149);
   --link-background-color: #a3a3a336;
 }
+
+// other
+
+audio {
+  width: 100%;
+}
+
+span.hanchor {
+  position: absolute;
+  transform: translate(-30px, 50%);
+  font-size: 0.7rem;
+  font-weight: 300;
+  color: #6b879a;
+}

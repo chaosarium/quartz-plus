@@ -7,27 +7,47 @@
 <div class="singlePage">
     <!-- Begin actual content -->
     {{partial "header.html" .}}
-    <article>
-      {{if .Title}}<h1 class="article-title">{{ .Title }}</h1>{{end}}
 
-      <p class="meta">
+    <div class="article-enclosure">
+
+      <div class="left-side">
+        {{/*  {{partial "side-toc.html" .}}  */}}
+      </div>
+
+      <article>
+
+        {{if .Title}}
+          <h1 class="article-title">{{ .Title }}</h1>
+        {{end}}
+        
         {{ if .Date }}
+        <p class="meta">
           Date: {{ partial "date-fmt.html" .}} 
+        </p>
         {{ end }} 
-      </p>
-
-      {{/*  <p class="meta">
-        {{ i18n "last_updated" }} {{ partial "date-fmt.html" .}} 
-          {{ partial "github.html" . }}
-      </p>  */}}
-      <ul class="tags">
+        
+        {{ if .GetTerms "tags" }}
+        <ul class="tags">
           {{ range (.GetTerms "tags") }}
           <li><a href="{{ .Permalink }}">{{ .LinkTitle | humanize }}</a></li>
           {{ end }}
-      </ul>
-      {{partial "toc.html" .}}
-      {{partial "textprocessing.html" . }}
-    </article>
+        </ul>
+        {{ end }}
+
+        {{partial "toc.html" .}}
+  
+        {{partial "textprocessing.html" . }}
+  
+      </article>
+
+      <div class="right-side">
+        <div class="floating">
+          {{partial "side-toc.html" .}}
+        </div>
+      </div>
+  
+    </div>
+
     {{ $js := resources.Get "js/chunker.js" | resources.ExecuteAsTemplate "js/chunker.js" . | resources.Fingerprint "md5" | resources.Minify }}
     <script defer type="module" src="{{ $js.Permalink }}"></script>
 
