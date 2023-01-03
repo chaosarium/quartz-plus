@@ -30,3 +30,5 @@ links:
     link: https://chaosarium.netlify.app
 
 textProcessingDebug: false
+
+tocHeadingsDepth: 5 # to what heading level does article get segmented by heading

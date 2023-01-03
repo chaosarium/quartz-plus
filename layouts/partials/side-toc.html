@@ -1,0 +1,16 @@
+{{ $hasHeaders := gt (len (findRE "<h\\d.*?>(.|\n)*?</h\\d>" .Content)) 0 }}
+
+{{ if (or (and (not $.Site.Data.config.enableToc) .Params.enableToc) (and $.Site.Data.config.enableToc (ne
+.Params.enableToc false) $hasHeaders)) }}
+<aside class="sideTOC">
+
+  <details open disabled>
+    <summary>{{ i18n "toc" }}</summary>
+    {{ .TableOfContents }}
+    <svg class="toc-marker" width="200" height="200" xmlns="http://www.w3.org/2000/svg">
+      <path fill="transparent" stroke-dasharray="0, 0, 0, 1000"/>
+    </svg>
+  </details>
+
+</aside>
+{{end}}

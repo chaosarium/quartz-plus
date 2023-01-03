@@ -1,0 +1,28 @@
+{{- $pages := index (index .Site.Taxonomies.tags "Blog-2.0").Pages}}
+{{- if and (gt (len $pages) 1) (in $pages . ) }}
+<nav class="page-time-nav">
+
+    <div class="prev">
+        {{- with $pages.Prev . }}
+        <a class="" href="{{ .Permalink }}">
+            <span class="page-nav-label"><- PREV</span>
+            <br>
+            <span class="page-nav-title">{{- .Name -}}</span>
+        </a>
+        {{- end }}
+    </div>
+    
+    <div class="v-bar"></div>
+
+    <div class="next">
+        {{- with $pages.Next . }}
+        <a class="" href="{{ .Permalink }}">
+            <span class="page-nav-label">NEXT -></span>
+            <br>
+            <span class="page-nav-title">{{- .Name -}}</span>
+        </a>
+        {{- end }}
+    </div>
+
+</nav>
+{{- end }}

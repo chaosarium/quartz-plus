@@ -1,0 +1,76 @@
+// for page layouts only
+.singlePage {
+   padding: 30px 5vw;
+   max-width: 40em;
+   margin: 0 auto;
+
+   .article-enclosure {
+      .left-side {
+         display: none;
+      }
+
+      .right-side {
+         display: none;
+      }
+   }
+
+   // @media all and (min-width: 1200px) {
+   //   padding: 4em 5vw;
+   // }
+   @media all and (min-width: 1400px) {
+      header {
+         margin-bottom: 0;
+      }
+
+      .article-enclosure {
+         margin-left: -20em;
+         margin-right: -20em;
+         display: grid;
+         gap: 2em;
+         grid-template-columns: 18em 40em 18em;
+         grid-template-areas:
+            "left-side article right-side";
+
+         .left-side {
+            grid-area: left-side;
+         }
+
+         article {
+            grid-area: article;
+            .TOC {
+               display: none;
+            }
+         }
+
+         .right-side {
+            & > div.floating { // floating TOC
+               padding-left: 9px;
+               margin-top: 2em;
+               border-left: solid 1px var(--outlinegray);
+               position: sticky;
+               top: 40px;
+            }
+         
+            grid-area: right-side;
+            display: flex;
+            align-items: flex-start;
+            padding-top: 70px;
+         }
+
+      }
+   }
+}
+
+.widePage {
+   padding: 30px 5vw;
+   max-width: 46em;
+   margin: 0 auto;
+   // @media all and (min-width: 1200px) {
+   //   padding: 4em 5vw;
+   // }
+}
+
+.blankPage {
+   padding: 0;
+   margin: 0 auto;
+}

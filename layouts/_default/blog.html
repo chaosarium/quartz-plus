@@ -19,13 +19,15 @@
         {{if .Title}}
           <h1 class="article-title">{{ .Title }}</h1>
         {{end}}
-        
-        {{ if .Date }}
+
         <p class="meta">
-          Date: {{ partial "date-fmt.html" .}} 
+          {{ if .Date }}
+            Date: {{ partial "date-fmt.html" .}} 
+          {{ end }} 
         </p>
-        {{ end }} 
-        
+
+        {{ partial "blog-post-nav.html" .}}
+
         {{ if .GetTerms "tags" }}
         <ul class="tags">
           {{ range (.GetTerms "tags") }}
@@ -35,9 +37,9 @@
         {{ end }}
 
         {{partial "toc.html" .}}
-  
+
         {{partial "textprocessing.html" . }}
-  
+        
       </article>
 
       <div class="right-side">
@@ -58,5 +60,5 @@
 </html>
 
 <script>
-  console.log('from single.html')
+  console.log('from blog.html')
 </script>
