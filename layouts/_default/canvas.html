@@ -3,15 +3,16 @@
 {{ partial "head.html" . }}
 
 <body>
-<div class="blankPage">
+<div class="widePage">
   <article>
     {{if .Title}}<h1 class="article-title">{{ .Title }}</h1>{{end}}
     {{partial "textprocessing.html" . }}
   </article>
+  {{ partial "chunker.html" . }}
 </div>
 </body>
 </html>
 
 <script>
-  console.log('from blank.html')
+  console.log('from canvas.html')
 </script>

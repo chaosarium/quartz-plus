@@ -8,7 +8,7 @@
     <!-- Begin actual content -->
     {{partial "header.html" .}}
     <article>
-      {{if .Title}}<h1>{{ .Title }}</h1>{{end}}
+      {{if .Title}}<h1 class="article-title">{{ .Title }}</h1>{{end}}
 
       <p class="meta">
         {{ if .Date }}
@@ -28,7 +28,9 @@
       {{partial "toc.html" .}}
       {{partial "textprocessing.html" . }}
     </article>
+    {{ partial "chunker.html" . }}
     {{partial "footer.html" .}}
+
 </div>
 </body>
 </html>
