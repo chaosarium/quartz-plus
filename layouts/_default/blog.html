@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="{{ .Lang }}">
+{{ partial "head.html" . }}
+
+<body>
+{{partial "search.html" .}}
+<div class="singlePage">
+    <!-- Begin actual content -->
+    {{partial "header.html" .}}
+    <article>
+      {{if .Title}}<h1 class="article-title">{{ .Title }}</h1>{{end}}
+
+      <p class="meta">
+        {{ if .Date }}
+          Date: {{ partial "date-fmt.html" .}} 
+        {{ end }} 
+      </p>
+
+      {{ partial "blog-post-nav.html" .}}
+
+      <ul class="tags">
+          {{ range (.GetTerms "tags") }}
+          <li><a href="{{ .Permalink }}">{{ .LinkTitle | humanize }}</a></li>
+          {{ end }}
+      </ul>
+      {{partial "toc.html" .}}
+      {{partial "textprocessing.html" . }}
+    </article>
+    {{ partial "chunker.html" . }}
+    {{partial "footer.html" .}}
+
+</div>
+</body>
+</html>
+
+<script>
+  console.log('from blog.html')
+</script>
