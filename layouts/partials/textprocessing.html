@@ -21,11 +21,11 @@
 <!-- image without dimension -->
 {{$content = replaceRE `(?i)\!\[\[(.*)\.(jpg|png|jpeg|webp|svg)\]\]` `<img src="/attachments/${1}.${2}" alt="${1}.${2}">` $content}}
 <!-- audio -->
-{{$content = replaceRE `(?i)\!\[\[(.*)\.(mp3|m4a)\]\]` `<audio controls src="attachments/\1.\2"></audio>` $content}}
+{{$content = replaceRE `(?i)\!\[\[(.*)\.(mp3|m4a)\]\]` `<audio controls src="/attachments/${1}.${2}"></audio>` $content}}
 <!-- video -->
-{{$content = replaceRE `(?i)\!\[\[(.*)\.(pdf)\]\]` `<iframe src="attachments/\1.\2" style="width: 100%; height: 60vh;"></iframe>` $content}}
+{{$content = replaceRE `(?i)\!\[\[(.*)\.(pdf)\]\]` `<iframe src="/attachments/${1}.${2}" style="width: 100%; height: 60vh;"></iframe>` $content}}
 <!-- pdf -->
-{{$content = replaceRE `(?i)\!\[\[(.*)\.(mp4)\]\]` `<video controls="" src="attachments/\1.\2"></video>` $content}}
+{{$content = replaceRE `(?i)\!\[\[(.*)\.(mp4)\]\]` `<video controls="" src="/attachments/${1}.${2}"></video>` $content}}
 
 
 {{range $wikilinks}}
