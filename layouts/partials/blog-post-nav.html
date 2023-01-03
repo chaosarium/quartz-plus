@@ -1,0 +1,61 @@
+{{- $pages := index (index .Site.Taxonomies.tags "Blog-2.0").Pages}}
+{{- if and (gt (len $pages) 1) (in $pages . ) }}
+<nav class="page-time-nav">
+
+    <div class="prev">
+        {{- with $pages.Prev . }}
+        <a class="" href="{{ .Permalink }}">
+            <span class="page-nav-label"><- PREV</span>
+            <br>
+            <span class="page-nav-title">{{- .Name -}}</span>
+        </a>
+        {{- end }}
+    </div>
+    
+    <div class="v-bar"></div>
+
+    <div class="next">
+        {{- with $pages.Next . }}
+        <a class="" href="{{ .Permalink }}">
+            <span class="page-nav-label">NEXT -></span>
+            <br>
+            <span class="page-nav-title">{{- .Name -}}</span>
+        </a>
+        {{- end }}
+    </div>
+
+</nav>
+{{- end }}
+
+<style>
+    .page-time-nav {
+        display: flex;
+        border: var(--outlinegray) 1px solid;
+        border-radius: 5px;
+    }
+    .next, .prev {
+        width: 50%;     
+        padding: 0.5em 1em;
+    }
+    .v-bar {
+        background-color: var(--outlinegray);
+        border-left: var(--outlinegray) solid 1px;
+        margin: 0.5em 0;        
+        width: 0;
+    }
+    .next:hover, .prev:hover {
+        background-color: rgba(206, 206, 206, 0.177);
+    }
+    .page-nav-label {
+        font-family: "Inter";
+        font-weight: 300;
+        font-size: 12px;
+        letter-spacing: 3px;
+    }
+    .next {
+        text-align: right;
+    }
+    .prev {
+        text-align: left;
+    }
+</style>
