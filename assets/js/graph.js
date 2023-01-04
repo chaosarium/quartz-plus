@@ -22,8 +22,11 @@ async function drawGraph(baseUrl, isHome, pathColors, graphConfig) {
 
   // Use .pathname to remove hashes / searchParams / text fragments
   const cleanUrl = window.location.origin + window.location.pathname
+  console.log("cleanUrl " + cleanUrl)
+  console.log("baseUrl " + baseUrl)
 
   const curPage = cleanUrl.replace(/\/$/g, "").replace(baseUrl, "")
+  console.log("curPage " + curPage)
 
   const parseIdsFromLinks = (links) => [
     ...new Set(links.flatMap((link) => [link.source, link.target])),
