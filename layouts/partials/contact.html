@@ -6,7 +6,6 @@
     <footer>
         {{ $name := $data.name | default $.Site.Data.config.name }}
         {{ $year := dateFormat "2006" now }}
-        <p>Made by chaosarium using <a href="https://github.com/chaosarium/quartz-plus">Quartz Plus</a>. Unless cited or otherwise specified, content is under <a href="http://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.</p>
         <ul>
             {{ if not .IsHome }}
             <li><a href="{{ relURL $.Site.BaseURL}}">{{ i18n "home" }}</a></li>
@@ -15,7 +14,10 @@
             {{- range $data.links | default $.Site.Data.config.links -}}
                 <li><a href="{{.link}}">{{.link_name}}</a></li>
             {{- end -}}
-            
         </ul>
+
+        <p class="endnote">Made by chaosarium using <a href="https://github.com/chaosarium/quartz-plus">Quartz Plus</a>. </p>
+        <p class="endnote">Unless cited or otherwise specified, content is under <a href="http://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.</p>
+
     </footer>
 </div>
