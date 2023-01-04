@@ -1,4 +1,4 @@
-{{ $hasHeaders := gt (len (findRE "<h\\d.*?>(.|\n)*?</h\\d>" .Content)) 0 }}
+{{ $hasHeaders := gt (len (findRE "<h\\d.*?>(.|\n)*?</h\\d>" .Content)) 2 }}
 
 {{ if (or (and (not $.Site.Data.config.enableToc) .Params.enableToc) (and $.Site.Data.config.enableToc (ne
 .Params.enableToc false) $hasHeaders)) }}
