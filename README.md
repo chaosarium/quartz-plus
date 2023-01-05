@@ -29,6 +29,7 @@ Roadmap:
 - [x] Publishing control
 - [x] Fix media embed
 - [ ] Fix orphan not showing up (partially fixed)
+- [x] Fix Callout behaviour consistency with Obsidian (https://github.com/jackyzha0/quartz/pull/268)
 - [x] Don't draw/Draw muted node if file does not exist
 - [ ] Custom home page
 - [ ] Nav bar
