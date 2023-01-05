@@ -45,6 +45,7 @@ def strip_name(s) -> str:
   # gets rid of symbols, spaces, etc.
   return (s.replace(".md", "")
           .replace("?", "")
+          .replace("&", "")
           .replace("!", "")
           .replace("/", "")
           .replace(" ",  "")
