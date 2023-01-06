@@ -151,7 +151,7 @@ article {
       margin: auto -0.1em;
       border-radius: 3px;
 
-      &:hover {
+      &:not(.broken):hover {
         background-color: var(--link-background-hover-color);
       }
 
@@ -309,10 +309,6 @@ hr {
   }
 }
 
-.centered {
-  margin-top: 30vh;
-}
-
 .spacer {
   flex: 1 1 auto;
 }
@@ -458,7 +454,7 @@ header {
 }
 
 .search-highlight {
-  background-color: #afbfc966;
+  background-color: var(--link-background-hover-color);
   padding: 0.05em 0.2em;
   border-radius: 3px;
 }
