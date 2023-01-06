@@ -14,4 +14,3 @@ content-source-test/.obsidian/
 static/attachments/*
 !static/attachments/.gitkeep
 .vscode
-static/icon.png

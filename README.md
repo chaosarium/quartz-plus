@@ -34,9 +34,9 @@ Roadmap:
 - [ ] Custom home page
 - [ ] Nav bar
 - [ ] Sidenotes
-- [ ] Table of content on sidebar (inspiration -> )
+- [x] Table of content on sidebar
 - [ ] Obsidian inline tag support
-- [ ] Footnotes as signnotes (inspiration -> https://github.com/capnfabs/paperesque)
+- [ ] Footnotes as sidenotes (inspiration -> https://github.com/capnfabs/paperesque)
 
 ---
 

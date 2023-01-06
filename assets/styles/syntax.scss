@@ -1,7 +1,7 @@
 // Overrides
 /* Background */
 .chroma {
-  overflow: hidden !important;
+  // overflow: hidden !important;
   background-color: var(--lightgray) !important;
 }
 
@@ -47,13 +47,13 @@
 .chroma code {
   font-family: var(--font-mono) !important;
   font-size: 0.85em !important;
-  line-height: 2em; 
+  line-height: initial; 
   background: none !important;
   padding: 0 !important;
 }
 
 .chroma {
-  border-radius: 3px !important;
+  border-radius: 5px !important;
   margin: 0 !important;
 }
 

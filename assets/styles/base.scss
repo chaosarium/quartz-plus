@@ -62,20 +62,25 @@ tbody, li, p {
 }
 
 table {
-  border: 1px solid var(--outlinegray);
-  width: 100%;
+  border: none;
+  max-width: 100%;
   padding: 1.5em;
   border-collapse: collapse;
+  overflow-y: scroll;
+  padding: 0;
+  display: inline-block;
+  box-sizing: border-box;
 }
 
 td, th {
-  padding: 0.2em 1em;
+  padding: 0.5em 0.5em;
+  line-height: initial;
   border: 1px solid var(--outlinegray);
 }
 
 img {
   max-width: 100%;
-  border-radius: 3px;
+  border-radius: 5px;
   margin: 1em 0;
 }
 
@@ -146,6 +151,10 @@ article {
       margin: auto -0.1em;
       border-radius: 3px;
 
+      &:hover {
+        background-color: var(--link-background-hover-color);
+      }
+
       &.broken {
         opacity: 0.5;
         background-color: transparent; 
@@ -214,7 +223,7 @@ a {
   transition: all 0.2s ease;
   color: var(--secondary);
   &:hover {
-    color: var(--tertiary) !important;
+    color: var(--primary);
   }
 }
 
@@ -230,6 +239,7 @@ code {
   font-size: 0.85em;
   padding: 0.15em 0.3em;
   border-radius: 5px;
+  word-break: break-word;
   background: var(--lightgray);
 }
 
@@ -326,7 +336,7 @@ header {
       text-transform: uppercase;
       &:hover {
         background: none;
-        color: var(--secondary);
+        color: var(--primary);
       }
     }
   }
@@ -355,7 +365,7 @@ header {
     fill: var(--tertiary);
 
     &:hover {
-      fill: var(--secondary);
+      fill: var(--primary);
     }
   }
 }

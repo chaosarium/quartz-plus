@@ -13,7 +13,7 @@
         width: 0;
     }
     .next:hover, .prev:hover {
-        background-color: rgba(206, 206, 206, 0.177);
+        background-color: var(--background-modifier-cover)
     }
     .page-nav-label {
         font-family: "Inter";

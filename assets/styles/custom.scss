@@ -6,29 +6,30 @@
   --secondary: #474747;
   --tertiary: #6e6e6e;
   --visited: #969696;
-  --primary: #252525;
+  --primary: #ff6224;
   --gray: #4e4e4e;
   --lightgray: #f0f0f0;
   --outlinegray: #dadada;
-  --million-progress-bar-color: var(--secondary);
-  --highlighted: #f5dfaf88;
+  --highlighted: #ffa88643;
   --background-modifier-cover: rgba(244, 244, 244, 0.64);
-  --link-background-color: #a3a3a331;
+  --link-background-color: #c7c7c731;
+  --link-background-hover-color: #ff9f794a;
 }
 
 [saved-theme="dark"] {
-  --light: #1e1e21 !important;
-  --dark: #fbfffe !important;
-  --secondary: #6b879a !important;
-  --visited: #4a575e !important;
-  --tertiary: #84a59d !important;
-  --primary: #f58382 !important;
-  --gray: #d4d4d4 !important;
-  --lightgray: #292633 !important;
-  --outlinegray: #343434 !important;
-  --highlighted: #574010;
+  --light: #252525;
+  --dark: #ffffff;
+  --secondary: #adadad;
+  --visited: #7d7d7d;
+  --tertiary: #666666;
+  --primary: #97c0ff;
+  --gray: #b8b8b8;
+  --lightgray: #2e2e2e;
+  --outlinegray: #333333;
+  --highlighted: #1367c14f;
   --background-modifier-cover: rgba(0, 0, 0, 0.149);
   --link-background-color: #a3a3a336;
+  --link-background-hover-color: #97c0ff4a;
 }
 
 // other
@@ -38,11 +39,13 @@ audio {
 }
 
 span.hanchor {
-  position: absolute;
-  transform: translate(-30px, 50%);
-  font-size: 0.7rem;
-  font-weight: 300;
-  color: #6b879a;
+  position: relative;
+  font-size: .5rem;
+  font-weight: 700;
+  opacity: .3;
+  top: -20%;
+  left: -2rem;
+  display: none;
 }
 
 .endnote {
@@ -53,4 +56,55 @@ span.hanchor {
   a {
     font-weight: 400;
   }
+}
+
+article img {
+  max-width: 100%;
+  display: block;
+  margin: 0 auto;
+  max-height: 75vh;
+}
+
+article iframe {
+  box-sizing: border-box;
+}
+
+// code block margin
+div.highlight {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+
+// headings
+
+h1 { 
+  font-size: 2.1em;
+  // margin-top: 1em; 
+  font-weight: 800;
+}
+h2 { 
+  font-size: 1.8em;
+  // margin-top: 1em; 
+  font-weight: 720;
+}
+h3 { 
+  font-size: 1.55em;
+  // margin-top: 1em; 
+  font-weight: 680;
+}
+h4 { 
+  font-size: 1.35em;
+  // margin-top: 1em; 
+  font-weight: 640;
+}
+h5 { 
+  font-size: 1.20em;
+  // margin-top: 1em; 
+  font-weight: 600;
+}
+h6 { 
+  font-size: 1.05em;
+  // margin-top: 1em; 
+  font-weight: 560;
 }
