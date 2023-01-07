@@ -63,7 +63,7 @@ jobs:
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
-          github_token: ${{ secrets.VAULT_PAT }}
+          personal_token: ${{ secrets.VAULT_PAT }}
           external_repository: chaosarium/Zettelkasten
           publish_dir: ./public
           publish_branch: site  # deploying branch
