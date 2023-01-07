@@ -145,6 +145,3 @@ print(f'POSTPROCESS: added {orphans_added} orphans to the graph')
 json_object = json.dumps(processed_data, indent=2)
 with open("./assets/indices/linkIndex.json", "w") as outfile:
   outfile.write(json_object)
-
-print(md_file_existence_heuristic(existing_files, "/2022-07-17-Art-by-AI-Some-Initial-Experimentation"))
-print(strip_name("2022-07-17 Art by AI? Some Initial Experimentation"))
