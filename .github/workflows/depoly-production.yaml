@@ -1,0 +1,68 @@
+name: Deploy to site branch on private vault repository
+
+on:
+  repository_dispatch: # triggered by vault push
+    types: [build_static]
+  push:
+    branches:
+      - hugo
+
+jobs:
+  deploy:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: checkout zettelkasten
+        uses: actions/checkout@v3 
+        with:
+          repository: chaosarium/Zettelkasten
+          path: zettelkasten
+
+      - name: checkout quartz plus
+        uses: actions/checkout@v3 
+        with:
+          repository: chaosarium/quartz-plus
+          path: quartz-plus
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.9
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install python_frontmatter==1.0.0
+
+      - name: Run Preprocess Script
+        working-directory: ./quartz-plus
+        run: python preprocess.py --source_path "../zettelkasten" --target_path "content" --target_attachment_path "static/attachments" > /dev/null
+
+      - name: Build Link Index
+        uses: jackyzha0/hugo-obsidian@v2.18
+        with:
+          index: true
+          input: quartz-plus/content
+          output: quartz-plus/assets/indices
+          root: quartz-plus
+
+      - name: Run Postprocess Script
+        working-directory: ./quartz-plus
+        run: sudo python postprocess.py
+
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v2
+        with:
+          hugo-version: '0.101.0'
+          extended: true
+
+      - name: Build
+        working-directory: ./quartz-plus
+        run: hugo --minify --destination "../public" --baseURL "https://zettelkasten.chaosarium.xyz/"
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          external_repository: chaosarium/Zettelkasten
+          publish_dir: ./public
+          publish_branch: site  # deploying branch
