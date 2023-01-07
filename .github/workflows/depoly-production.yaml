@@ -15,6 +15,7 @@ jobs:
         uses: actions/checkout@v3 
         with:
           repository: chaosarium/Zettelkasten
+          token: ${{ secrets.GH_PAT }}
           path: zettelkasten
 
       - name: checkout quartz plus
@@ -57,7 +58,7 @@ jobs:
 
       - name: Build
         working-directory: ./quartz-plus
-        run: hugo --minify --destination "../public" --baseURL "https://zettelkasten.chaosarium.xyz/"
+        run: hugo --minify --destination "../public" --baseURL ${{ secrets.baseURL }}
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
