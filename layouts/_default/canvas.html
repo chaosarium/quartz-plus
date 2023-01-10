@@ -9,7 +9,7 @@
     {{partial "textprocessing.html" . }}
   </article>
   {{ $js := resources.Get "js/chunker.js" | resources.ExecuteAsTemplate "js/chunker.js" . | resources.Fingerprint "md5" | resources.Minify }}
-  <script defer type="module" src="{{ $js.Permalink }}"></script>
+  <script defer type="module" src="{{ relURL $js.Permalink }}"></script>
 
 </div>
 </body>

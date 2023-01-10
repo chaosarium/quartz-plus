@@ -527,7 +527,7 @@
 
   <!-- table of content -->
   {{ $js := resources.Get "js/fancy-toc.js" | resources.ExecuteAsTemplate "js/fancy-toc.js" . | resources.Fingerprint "md5" | resources.Minify }}
-  <script defer type="module" src="{{ $js.Permalink }}"></script>
+  <script defer type="module" src="{{ relURL $js.Permalink }}"></script>
 
 </head>
 {{ template "_internal/google_analytics.html" . }}
