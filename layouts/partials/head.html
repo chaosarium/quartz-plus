@@ -440,7 +440,8 @@
             {{strings.TrimRight "/" .Site.BaseURL}},
             drawGlobal,
             {{$.Site.Data.graphConfig.paths}},
-            drawGlobal ? {{$.Site.Data.graphConfig.globalGraph}} : {{$.Site.Data.graphConfig.localGraph}}
+            drawGlobal ? {{$.Site.Data.graphConfig.globalGraph}} : {{$.Site.Data.graphConfig.localGraph}},
+            {{ .Page.RelPermalink }}
           );
 
         }
@@ -459,7 +460,8 @@
           {{strings.TrimRight "/" .Site.BaseURL}},
           drawGlobal,
           {{$.Site.Data.graphConfig.paths}},
-          drawGlobal ? {{$.Site.Data.graphConfig.globalGraph}} : {{$.Site.Data.graphConfig.localGraph}}
+          drawGlobal ? {{$.Site.Data.graphConfig.globalGraph}} : {{$.Site.Data.graphConfig.localGraph}},
+          {{ .Page.RelPermalink }}
         );
 
       }

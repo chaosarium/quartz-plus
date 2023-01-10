@@ -1,4 +1,4 @@
-async function drawGraph(baseUrl, isHome, pathColors, graphConfig) {
+async function drawGraph(baseUrl, isHome, pathColors, graphConfig, pageRelPermalink = null) {
 
   let {
     depth,
@@ -25,7 +25,7 @@ async function drawGraph(baseUrl, isHome, pathColors, graphConfig) {
   console.log("cleanUrl " + cleanUrl)
   console.log("baseUrl " + baseUrl)
 
-  const curPage = cleanUrl.replace(/\/$/g, "").replace(baseUrl, "")
+  const curPage = pageRelPermalink ? pageRelPermalink.replace(/\/$/g, "") : cleanUrl.replace(/\/$/g, "").replace(baseUrl, "") // use one passed by Hugo instead. Fixes netlify case insensitivity.
   console.log("curPage " + curPage)
 
   const parseIdsFromLinks = (links) => [
