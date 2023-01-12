@@ -3,6 +3,7 @@
 window.onload = function () {
 
     var toc = document.querySelector('.sideTOC');
+    if (!toc) return;
     var tocPath = document.querySelector('.toc-marker path');
     var tocItems;
 
@@ -17,7 +18,8 @@ window.onload = function () {
     window.addEventListener('resize', drawPath, false);
     window.addEventListener('scroll', sync, false);
     // listen for TOC open close
-    document.querySelector('.sideTOC details').addEventListener('toggle', drawPath, false);
+    var toc_details = document.querySelector('.sideTOC details')
+    if (toc_details) toc_details.addEventListener('toggle', drawPath, false);
 
     drawPath();
 
