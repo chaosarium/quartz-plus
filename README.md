@@ -36,6 +36,7 @@ Roadmap:
 - [ ] Sidenotes
 - [x] Table of content on sidebar
 - [ ] Obsidian inline tag support
+- [x] Pretty calendar embed support
 - [ ] Footnotes as sidenotes (inspiration -> https://github.com/capnfabs/paperesque)
 
 ---

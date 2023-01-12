@@ -6,7 +6,7 @@ build: cleanhugo genprod
 	hugo --cleanDestinationDir --enableGitInfo
 
 serve: ## Serve Quartz locally
-	hugo server --enableGitInfo
+	hugo server --enableGitInfo --poll 5000
 
 cleanhugo: ## delete output
 	find "content" -type f \( -iname "*" ! -iname ".gitkeep" \) -delete

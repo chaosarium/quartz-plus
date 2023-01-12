@@ -1,0 +1,83 @@
+<div>
+    <script src="https://cdn.jsdelivr.net/npm/ical.js@1.5.0/build/ical.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.0.3/index.global.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/icalendar@6.0.3/index.global.js"></script>
+    {{ $js := resources.Get "js/ical_events.js" | resources.ExecuteAsTemplate "js/chunker.js" . | resources.Fingerprint
+    "md5" | resources.Minify }}
+    <script src="{{ relURL $js.Permalink }}"></script>
+    {{ $js := resources.Get "js/ical_fullcalendar.js" | resources.ExecuteAsTemplate "js/chunker.js" . |
+    resources.Fingerprint "md5" | resources.Minify }}
+    <script src="{{ relURL $js.Permalink }}"></script>
+</div>
+
+<style>
+    #calendar table {
+        display: table;
+    }
+    .fc .fc-toolbar.fc-header-toolbar {
+        margin-bottom: 1em !important;
+        font-family: var(--font-header);
+        font-size: 0.8rem
+    }
+    .fc .fc-toolbar-title {
+        font-size: 1.2rem;
+        font-weight: 600;
+    }
+</style>
+
+<div id='calendar' style="margin-top: 1em; margin-bottom: 1em;"></div>
+
+<script>
+    ics_sources = JSON.parse({{.Get `json` }})
+    console.log(ics_sources)
+
+    async function data_req2(url) {
+        let response = await fetch(url);
+        response = await response.text();
+        // console.log(response)
+        return response
+    }
+
+    async function get_events(ics) {
+        var ics_data = await data_req2(ics.url)
+        // console.log(ics_data)
+        var events = await fc_events(ics_data, ics.event_properties)
+        // console.log(events)
+        return events
+    }
+
+    document.addEventListener('DOMContentLoaded', async function () {
+        var calendarEl = document.getElementById('calendar');
+
+        var events = []
+        for (ics of ics_sources) {
+            events = events.concat(await get_events(ics))
+        }
+        console.log("all events")
+        console.log(events)
+
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'timeGridWeek',
+            nowIndicator: true,
+
+            headerToolbar: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'timeGridWeek,listMonth'
+            },
+
+            themeSystem: "bootstrap5",
+
+            allDaySlot: false,
+
+            editable: false,
+            selectable: false,
+            selectMirror: false,
+
+            events: events
+
+        });
+
+        calendar.render();
+    });
+</script>
