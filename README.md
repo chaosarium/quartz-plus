@@ -1,6 +1,6 @@
 # A Superset of Quartz
 
-Based on the [quartz](https://github.com/jackyzha0/quartz) hugo theme by jackyzha0. 
+Based on [quartz](https://github.com/jackyzha0/quartz) by @jackyzha0. 
 
 Existing features:
 
@@ -15,10 +15,14 @@ Added features:
 1. Preprocessing script for better Obsidian valut integration and publishing control (use "publish: true" in yaml frontmatter to whitelist files)
 2. Copying attachments from Obsidian to the right place (thereby supporting wikilink without leading folder path)
 4. Support wikilink media embed like Obsidian does
-5. Some makefile changes for easier testing
-6. Updated theme
-7. Uses first h1 in markdown as hugo title
-8. Postprocessing script to clean up graph so that non-existent links or nodes don't show up
+5. Fancy table of content
+6. Pretty calendar embed using [FullCalendar](https://fullcalendar.io/)
+7. Custom theme
+8. Layout system
+9. Uses first h1 in markdown as hugo title
+10. Postprocessing script to clean up graph so that non-existent links or nodes don't show up
+11. GitHub workflow to build website from vault repo and deploy to branch on same or different repo (supports private repo)
+12. Netlify deployment support (by supporting case-insensitive url)
 
 Roadmap:
 
@@ -33,7 +37,6 @@ Roadmap:
 - [x] Don't draw/Draw muted node if file does not exist
 - [ ] Custom home page
 - [ ] Nav bar
-- [ ] Sidenotes
 - [x] Table of content on sidebar
 - [ ] Obsidian inline tag support
 - [x] Pretty calendar embed support
