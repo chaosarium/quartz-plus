@@ -21,7 +21,7 @@
     <div style="outline: 1px solid rgba(255, 150, 150, 0.557); display: none">
       <h2>experiments</h2>
       <h2>Recent blog posts</h2>
-      {{$blog_posts := index (index .Site.Taxonomies.tags "Blog-2.0").Pages}}
+      {{$blog_posts := index (index .Site.Taxonomies.tags "Blog").Pages}}
       <ul class="delay stagger">
           {{range first 3 $blog_posts }}
           <li>

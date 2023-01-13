@@ -24,6 +24,12 @@ jobs:
           repository: chaosarium/quartz-plus
           path: quartz-plus
 
+      - name: copy over config file
+        working-directory: ./quartz-plus
+        run: |
+          rm ./data/config.yaml
+          cp ../zettelkasten/config.yaml ./data/config.yaml
+
       - name: Set up Python
         uses: actions/setup-python@v4
         with:

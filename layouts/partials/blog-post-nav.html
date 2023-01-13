@@ -1,4 +1,4 @@
-{{- $pages := index (index .Site.Taxonomies.tags "Blog-2.0").Pages}}
+{{- $pages := index (index .Site.Taxonomies.tags "Blog").Pages}}
 {{- if and (gt (len $pages) 1) (in $pages . ) }}
 <nav class="page-time-nav">
 

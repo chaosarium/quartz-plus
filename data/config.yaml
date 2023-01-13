@@ -11,7 +11,7 @@ enableContextualBacklinks: true
 enableRecentNotes: false
 enableGitHubEdit: false
 enableMermaid: true
-GitHubLink: https://github.com/chaosarium/website3.0
+GitHubLink: https://github.com/example/somerepo
 search:
   enableSemanticSearch: false
   operandApiKey: "REPLACE-WITH-YOUR-OPERAND-API-KEY"
@@ -21,14 +21,12 @@ description:
 page_title:
   "zettelkasten"
 links:
-  - link_name: Github
-    link: https://github.com/chaosarium
+  - link_name: GitHub
+    link: https://github.com/example
   - link_name: Photography
-    link: https://photoarchive.chaosarium.xyz
+    link: https://photoarchive.example.com
   - link_name: File Repo
-    link: https://repo.chaosarium.xyz
-  - link_name: Old Website
-    link: https://chaosarium.netlify.app
+    link: https://repo.example.com
 
 textProcessingDebug: false
 
