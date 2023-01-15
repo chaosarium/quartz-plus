@@ -1,5 +1,5 @@
 // Replace this with your own font imports!
-@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&family=Inter:wght@200;300;400;600;700&family=Source+Sans+Pro:wght@300;400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&family=Inter:wght@200;300;400;500;600;700&family=Source+Sans+Pro:wght@300;400;600&display=swap');
 :root {
   --font-body: "Source Sans Pro";
   --font-header: "Inter";
@@ -137,7 +137,7 @@ article {
   }
   
   & > .meta {
-    margin: 0 0 1em 0;
+    margin: 0.5em 0 1em 0;
     opacity: 0.7;
   }
 
@@ -168,9 +168,10 @@ article {
   }
 }
 
-.tags {
+ul.tags {
   list-style: none;
   padding-left: 0;
+  margin-bottom: -0.2em;
 
   & .meta {
     margin: 1.5em 0;
@@ -184,7 +185,7 @@ article {
 
   & > li {
     display: inline-block;
-    margin: 0.4em 0.2em;
+    margin: 0 0.4em 0.2em 0;
   }
 
   & > li > a {
@@ -455,7 +456,7 @@ header {
 
 .search-highlight {
   background-color: var(--link-background-hover-color);
-  padding: 0.05em 0.2em;
+  // padding: 0.05em 0.2em;
   border-radius: 3px;
 }
 
@@ -463,32 +464,40 @@ header {
   list-style: none;
   margin-top: 2em;
   padding-left: 0;
-
 }
 
 .section-li {
-  margin-bottom: 1em;
+  margin-bottom: 1.5em;
 
   & > .section {
     display: flex;
-    align-items: center; 
+    align-items: start;
+    
+    & p.meta {
+      margin-top: 0.3em;
+      margin-bottom: 0;
+      padding-right: 1em;
+      font-size: 0.8em;
+      // flex-basis: 11em; 
+      flex: 0 0 4rem;
+    }
+    
+    & h3 > a {
+      font-weight: 700;
+      margin: 0;
+      font-size: 0.8em;
+    }
 
+    & .tags {
+      margin-top: 0.5em;
+    }
+    
     @media all and (max-width: 600px) {
       & .tags {
         display: none;
       }
     }
-
-    & h3 > a {
-      font-weight: 700;
-      margin: 0;
-    }
-    
-    & p {
-      margin: 0;
-      padding-right: 1em;
-      flex-basis: 6em; 
-    }
+  
   }
 
   & h3 {

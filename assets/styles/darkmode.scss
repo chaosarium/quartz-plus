@@ -12,3 +12,10 @@
 [saved-theme='dark'] #toggle-label-dark:hover {
     fill: var(--primary);
 }
+
+// class for enabling element only in one mode
+
+[saved-theme='light'] .dark-theme-only,
+[saved-theme='dark'] .light-theme-only {
+    display: none;
+}

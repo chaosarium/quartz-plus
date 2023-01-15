@@ -2,7 +2,7 @@
 <html lang="{{ .Lang }}">
 {{ partial "head.html" . }}
 
-<body>
+<body {{ with .Params.layoutClass }} class="{{ . }}" {{ end }}>
 {{partial "search.html" .}}
 <div class="singlePage">
     <!-- Begin actual content -->

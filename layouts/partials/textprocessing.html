@@ -17,7 +17,7 @@
 
 {{/*  Embeds  */}}
 <!-- image with dimension -->
-{{$content = replaceRE `(?i)\!\[\[(.*)\.(jpg|png|jpeg|webp|svg)\|(\d+)\]\]` `<img src="/attachments/${1}.${2}" alt="${1}.${2}" style="max-width: ${3}px">` $content}}
+{{$content = replaceRE `(?i)\!\[\[(.*)\.(jpg|png|jpeg|webp|svg)\|(\d+)\]\]` `<img src="/attachments/${1}.${2}" alt="${1}.${2}" style="width: ${3}px">` $content}}
 <!-- image without dimension -->
 {{$content = replaceRE `(?i)\!\[\[(.*)\.(jpg|png|jpeg|webp|svg)\]\]` `<img src="/attachments/${1}.${2}" alt="${1}.${2}">` $content}}
 <!-- audio -->

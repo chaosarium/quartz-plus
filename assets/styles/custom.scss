@@ -108,3 +108,32 @@ h6 {
   // margin-top: 1em; 
   font-weight: 560;
 }
+
+blockquote[class*="-callout"] > p {
+  
+}
+
+div.badge-group > p {
+  display: flex; 
+  gap: 0.5em; 
+  flex-wrap: wrap;
+  & img {
+    margin: unset;
+  }
+}
+
+// Using layoutClass in yaml metadata to style individual pages
+body.about-creator article {
+  h2 { 
+    font-size: 1.35em;
+    margin-top: 1em; 
+    font-weight: 720;
+    font-family: "Inter";
+  }
+  h3 { 
+    font-size: 1.2em;
+    margin-top: 1em; 
+    font-weight: 500;
+    font-family: "Inter";
+  }
+}

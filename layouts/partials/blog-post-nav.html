@@ -2,27 +2,31 @@
 {{- if and (gt (len $pages) 1) (in $pages . ) }}
 <nav class="page-time-nav">
 
-    <div class="prev">
-        {{- with $pages.Prev . }}
-        <a class="" href="{{ .Permalink }}">
-            <span class="page-nav-label"><- PREV</span>
-            <br>
-            <span class="page-nav-title">{{- .Name -}}</span>
+    {{- with $pages.Prev . }}
+    <a class="prev" href="{{ .Permalink }}">
+        <span class="page-nav-label"><- PREV</span>
+        <br>
+        <span class="page-nav-title">{{- .Name -}}</span>
+    </a>
+    {{- else}}
+        <a class="prev broken">
+            <span class="page-nav-label" style="opacity: 0.2;">NO MORE</span>
         </a>
-        {{- end }}
-    </div>
-    
+    {{- end }}
+
     <div class="v-bar"></div>
 
-    <div class="next">
-        {{- with $pages.Next . }}
-        <a class="" href="{{ .Permalink }}">
+    {{- with $pages.Next . }}
+        <a class="next" href="{{ .Permalink }}">
             <span class="page-nav-label">NEXT -></span>
             <br>
             <span class="page-nav-title">{{- .Name -}}</span>
         </a>
-        {{- end }}
-    </div>
+    {{- else}}
+        <a class="next broken">
+            <span class="page-nav-label" style="opacity: 0.2;">NO MORE</span>
+        </a>
+    {{- end }}
 
 </nav>
 {{- end }}
