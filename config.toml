@@ -1,7 +1,6 @@
 baseURL = "https://dummy.dummy"
 languageCode = "en"
 defaultContentLanguage = 'en'
-googleAnalytics = "G-GYQ0KX5HT5"
 relativeURLs = false
 disablePathToLower = true
 # ignoreFiles = [
