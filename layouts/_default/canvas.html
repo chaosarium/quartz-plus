@@ -4,6 +4,9 @@
 
 <body>
 <div class="widePage">
+
+  {{partial "header.html" .}}
+
   <article>
     {{if .Title}}<h1 class="article-title">{{ .Title }}</h1>{{end}}
     {{partial "textprocessing.html" . }}
