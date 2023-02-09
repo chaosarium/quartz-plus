@@ -137,3 +137,41 @@ body.about-creator article {
     font-family: "Inter";
   }
 }
+
+body.atoms article {
+  hr:not(.ahh) {
+    overflow: visible;
+    padding: 0;
+    margin: 32px auto;
+    border: none;
+    color: var(--gray);
+    text-align: center;
+    width: 100%;
+    z-index: -999;
+    border-color: var(--gray);
+  }
+
+  .TOC, .sideTOC {
+    display: none;
+  }
+
+  hr.ahh {
+    margin-bottom: 32px;
+  }
+
+  hr:not(.ahh)::after {
+    // content: '§';
+    content: "* * *";
+    z-index: -999;
+    display: inline-block;
+    margin: -1em 0 0.5em;
+    font-size: 1.5em;
+    padding: 0.5em 1em;
+    background: var(--light);
+    transform: translateY(-0.1em);
+  }
+
+  img {
+    max-width: 500px;
+  }
+}
