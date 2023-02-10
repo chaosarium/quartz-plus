@@ -142,7 +142,7 @@ body.atoms article {
   hr:not(.ahh) {
     overflow: visible;
     padding: 0;
-    margin: 32px auto;
+    margin: 64px auto;
     border: none;
     color: var(--gray);
     text-align: center;
@@ -155,9 +155,9 @@ body.atoms article {
     display: none;
   }
 
-  hr.ahh {
-    margin-bottom: 32px;
-  }
+  // hr.ahh {
+  //   margin-bottom: 64px;
+  // }
 
   hr:not(.ahh)::after {
     // content: '§';
