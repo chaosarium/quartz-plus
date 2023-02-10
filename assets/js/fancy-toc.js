@@ -30,7 +30,7 @@ window.onload = function () {
         // Cache element references and measurements
         tocItems = tocItems.map(function (item) {
             var anchor = item.querySelector('a');
-            var target = document.getElementById(anchor.getAttribute('href').slice(1));
+            var target = document.getElementById(anchor?.getAttribute('href').slice(1));
 
             return {
                 listItem: item,

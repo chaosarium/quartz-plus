@@ -27,10 +27,10 @@ switch (toc_headings_depth) {
   default:
     toc_headings_selector = "article h1:not(.article-title), article h2, article h3, article h4, article h5, article h6"
 }
+console.log(toc_headings_selector)
 
 
-
-let headers = document.querySelectorAll("article h1:not(.article-title), article h2, article h3, article h4, article h5, article h6")
+let headers = document.querySelectorAll(toc_headings_selector)
 let headersArr = Array.prototype.slice.call(headers)
 
 // copy all things before first header ()
