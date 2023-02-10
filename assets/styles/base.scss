@@ -171,7 +171,7 @@ article {
 ul.tags {
   list-style: none;
   padding-left: 0;
-  margin-bottom: -0.2em;
+  margin: 1em 0;
 
   & .meta {
     margin: 1.5em 0;
@@ -185,7 +185,7 @@ ul.tags {
 
   & > li {
     display: inline-block;
-    margin: 0 0.4em 0.2em 0;
+    margin: .4em .4em .4em 0;
   }
 
   & > li > a {
