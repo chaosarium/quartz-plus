@@ -23,6 +23,7 @@ Added features:
 10. Postprocessing script to clean up graph so that non-existent links or nodes don't show up
 11. GitHub workflow to build website from vault repo and deploy to branch on same or different repo (supports private repo)
 12. Netlify deployment support (by supporting case-insensitive url)
+13. Walk through md files and add inline tags to yaml metadata
 
 Roadmap:
 
@@ -38,7 +39,7 @@ Roadmap:
 - [ ] Custom home page
 - [ ] Nav bar
 - [x] Table of content on sidebar
-- [ ] Obsidian inline tag support
+- [x] Obsidian inline tag support
 - [x] Pretty calendar embed support
 - [ ] Footnotes as sidenotes (inspiration -> https://github.com/capnfabs/paperesque)
 
