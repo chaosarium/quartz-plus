@@ -9,15 +9,13 @@
 
                 <div class="desc">
                     <h3><a href="{{ .Permalink }}" class="listing-link" data-src="{{ .RelPermalink }}">{{- .Title -}}</a></h3>
+                    <ul class="tags">
+                        {{ range (.GetTerms "tags") }}
+                        <li><a href="{{ .Permalink }}">{{ .LinkTitle}}</a></li>
+                        {{ end }}
+                    </ul>
+    
                 </div>
-
-                <div class="spacer"></div>
-
-                <ul class="tags">
-                    {{ range (.GetTerms "tags") }}
-                    <li><a href="{{ .Permalink }}">{{ .LinkTitle | title}}</a></li>
-                    {{ end }}
-                </ul>
 
             </div>
         </li>

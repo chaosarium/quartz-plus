@@ -467,7 +467,7 @@ header {
 }
 
 .section-li {
-  margin-bottom: 1.5em;
+  margin-bottom: 0.5em;
 
   & > .section {
     display: flex;
@@ -479,7 +479,7 @@ header {
       padding-right: 1em;
       font-size: 0.8em;
       // flex-basis: 11em; 
-      flex: 0 0 4rem;
+      flex: 0 0 5rem;
     }
     
     & h3 > a {
@@ -489,12 +489,17 @@ header {
     }
 
     & .tags {
-      margin-top: 0.5em;
+      margin-top: 0.3em;
+      font-size: 0.7em;
+      
+      & > li > a {
+        border-radius: 6px;
+      }
     }
     
     @media all and (max-width: 600px) {
       & .tags {
-        display: none;
+        font-size: 0.6em;
       }
     }
   
