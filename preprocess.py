@@ -1,11 +1,12 @@
 # inspired by and based on https://github.com/sspaeti/second-brain-public
-import os, sys, argparse
+import os, sys, argparse, time
 from datetime import datetime
 import shutil
 from pathlib import Path
 import re
 import glob
 import frontmatter
+import asyncio
 
 # - loop through directly recursively through the directory and find all the .md files
 # - then loop through the files and find all the published notes
@@ -98,25 +99,39 @@ def add_h1_or_filename_as_title_frontmatter(md_file_path: str):
       # read line by line and search for h1
       with open(md_file_path, "r") as f:
         lines = f.readlines()
-        for i, line in enumerate(lines):
-          result = re.findall(h1_regex, line)
-          if result:
-            # print(f"found h1 in {md_file_path} line: {line}")
-            
-            # put in frontmatter and delete h1 line if any
-            # add h1 header to `title` to frontmatter
-            md_frontmatter["title"] = result[0]
-            # overwrite current file with added title
-            with open(md_file_path, "wb") as f:
-              frontmatter.dump(md_frontmatter, f)
-            delete_line(md_file_path, i+1)
-            break
-        if not result:
-          # none found, use filename
-          md_frontmatter["title"] = Path(md_file_path).stem
+        
+      for i, line in enumerate(lines):
+        result = re.findall(h1_regex, line)
+        if result:
+          # print(f"found h1 in {md_file_path} line: {line}")
+          
+          # put in frontmatter and delete h1 line if any
+          # add h1 header to `title` to frontmatter
+          md_frontmatter["title"] = result[0]
+          print(md_frontmatter["title"])
+                    
           # overwrite current file with added title
-          with open(md_file_path, "wb") as f:
-            frontmatter.dump(md_frontmatter, f)
+          dump_frontmatter(md_file_path, md_frontmatter)
+          
+          # then delete title
+          with open(md_file_path, "r") as f:
+            modified_lines = f.readlines()
+
+          for j, line in enumerate(modified_lines):
+            res = re.findall(h1_regex, line)
+            if res:
+              # print(f"found h1 in {md_file_path} line: {line}")
+
+              delete_line(md_file_path, j)
+              break
+
+          break
+      else:
+        # none found, use filename
+        md_frontmatter["title"] = Path(md_file_path).stem
+        # overwrite current file with added title
+        with open(md_file_path, "wb") as f:
+          frontmatter.dump(md_frontmatter, f)
 
 # === HELPERS ===
 
@@ -124,22 +139,25 @@ def get_inline_tags(md_text):
   # modified from https://github.com/obsidian-html/obsidian-html/blob/b9f5869cd9453db7909174bb004b5d309702c545/obsidianhtml/parser/MarkdownPage.py
   return [x[1:].replace('.','') for x in re.findall("(?<!\S)#[\w/\-]*[a-zA-Z\-_/][\w/\-]*", md_text)]
 
-def delete_line(file_path: str, line_to_delete: int):
-  # from https://pynative.com/python-delete-lines-from-file/
-  lines = []
-  # read file
-  with open(file_path, 'r') as f:
-      # read an store all lines into list
-      lines = f.readlines()
+def dump_frontmatter(md_file_path, md_frontmatter):
+  with open(md_file_path, "wb") as f:
+    frontmatter.dump(md_frontmatter, f)
 
-  # Write file
-  with open(file_path, 'w') as f:
-      # iterate each line
-      for number, line in enumerate(lines):
-          # delete line 5 and 8. or pass any Nth line you want to remove
-          # note list index starts from 0
-          if number != line_to_delete:
-              f.write(line)
+
+def delete_line(file_path: str, line_to_delete: int):
+  # print(f'attempting to delete line {line_to_delete} of file {file_path}')
+  
+  f = open(file_path, 'r')
+  lines = f.readlines()
+  f.close()
+  
+  lines = lines[:line_to_delete-1] + lines[line_to_delete+1:]
+  
+  f = open(file_path, 'w')
+  f.writelines(lines)
+  f.close()
+  
+  return
 
 # === RUN ===
 
