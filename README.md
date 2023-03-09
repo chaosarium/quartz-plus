@@ -12,18 +12,18 @@ Existing features:
 
 Added features:
 
-1. Preprocessing script for better Obsidian valut integration and publishing control (use "publish: true" in yaml frontmatter to whitelist files)
+1. Preprocessing script for better Obsidian vault integration and publishing control (use "publish: true" in yaml frontmatter to whitelist files)
 2. Copying attachments from Obsidian to the right place (thereby supporting wikilink without leading folder path)
-4. Support wikilink media embed like Obsidian does
-5. Fancy table of content
-6. Pretty calendar embed using [FullCalendar](https://fullcalendar.io/)
+3. Uses first h1 in markdown as title in frontmatter so that Hugo is happy (othewise use filename as title)
+4. Support wikilink media embed like Obsidian does, including video, pdf, and audio embed
+5. Fancy table of content on the side (with chunker script that puts each heading in its isolated div)
+6. Pretty calendar embed using [FullCalendar](https://fullcalendar.io/)
 7. Custom theme
-8. Layout system
-9. Uses first h1 in markdown as hugo title
-10. Postprocessing script to clean up graph so that non-existent links or nodes don't show up
-11. GitHub workflow to build website from vault repo and deploy to branch on same or different repo (supports private repo)
-12. Netlify deployment support (by supporting case-insensitive url)
-13. Walk through md files and add inline tags to yaml metadata
+8. Layout system - supports specifying layout in yaml metadata
+9. Postprocessing script to clean up graph so that non-existent links or nodes don't show up
+10. GitHub workflow to build website from vault repo and deploy to branch on same or different repo (supports private repo)
+11. Netlify deployment support (by supporting case-insensitive url)
+12. Walk through markdown files and add inline tags to yaml metadata
 
 Roadmap:
 

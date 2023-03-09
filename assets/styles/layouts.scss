@@ -42,6 +42,10 @@
             }
          }
 
+         .left-side {
+            display: block;
+         }
+   
          .right-side {
             & > div.floating { // floating TOC
                padding-left: 9px;

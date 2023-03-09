@@ -22,17 +22,17 @@ buildindices:
 	hugo-obsidian -input=content -output=assets/indices -index -root=. 
 
 proctest: cleancontent
-	python preprocess.py --source_path $(TEST_CONTENT_PATH) --target_path "content" --target_attachment_path "static/attachments" >/dev/null
+	python3 preprocess.py --source_path $(TEST_CONTENT_PATH) --target_path "content" --target_attachment_path "static/attachments" >/dev/null
 procprod: cleancontent
-	python preprocess.py --source_path $(PROD_CONTENT_PATH) --target_path "content" --target_attachment_path "static/attachments" >/dev/null
+	python3 preprocess.py --source_path $(PROD_CONTENT_PATH) --target_path "content" --target_attachment_path "static/attachments" >/dev/null
 
 postprocess:
-	python postprocess.py
+	python3 postprocess.py
 
 proctestverbose: cleancontent
-	python preprocess.py --source_path $(TEST_CONTENT_PATH) --target_path "content" --target_attachment_path "static/attachments"
+	python3 preprocess.py --source_path $(TEST_CONTENT_PATH) --target_path "content" --target_attachment_path "static/attachments"
 procprodverbose: cleancontent
-	python preprocess.py --source_path $(PROD_CONTENT_PATH) --target_path "content" --target_attachment_path "static/attachments"
+	python3 preprocess.py --source_path $(PROD_CONTENT_PATH) --target_path "content" --target_attachment_path "static/attachments"
 
 gentest: cleancontent proctest buildindices postprocess
 genprod: cleancontent procprod buildindices postprocess
