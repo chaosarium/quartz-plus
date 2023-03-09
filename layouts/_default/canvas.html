@@ -2,7 +2,7 @@
 <html lang="{{ .Lang }}">
 {{ partial "head.html" . }}
 
-<body>
+<body {{ with .Params.layoutClass }} class="{{ . }}" {{ end }}>
 <div class="widePage">
 
   {{partial "header.html" .}}

@@ -137,14 +137,14 @@ body.resume article {
   .TOC {
     display: none;
   }
-  h2 { 
+  .text-chunk > a > h2 { 
     font-size: 1.35em;
     margin-top: 1em; 
     font-weight: 720;
     font-family: "Inter";
     border-bottom: solid 2px var(--outlinegray);
   }
-  h3 { 
+  .text-chunk > a > h3 { 
     font-size: 1.2em;
     margin-top: 1em; 
     font-weight: 500;
@@ -229,5 +229,37 @@ blockquote[class*=minimal-callout] {
   &.callout-collapsed > p {
     border-bottom: 0px !important;
     border-bottom-left-radius: 5px;
+  }
+}
+
+div.portfolio-nav {
+  padding: 0.75em 1em;
+  margin: 1em 0;
+  border: var(--outlinegray)1px solid;
+  border-radius: 5px;
+  // background-color: var(--background-modifier-cover);
+
+  line-height: 1.5;
+
+  font-family: "Inter";
+  margin: 16px 0;
+  color: var(--tertiary);
+  a {
+    // font-family: "Inter";
+    font-weight: unset;
+    text-decoration: none;
+    background-color: var(--link-background-color);
+    color: var(--tertiary);
+    padding: 0 0.1em;
+    margin: auto -0.1em;
+    border-radius: 3px;
+  }
+  a:hover {
+    color: var(--primary);
+  }
+  b > a {
+    font-weight: 800;
+    background-color: #c7c7c750;
+    color: var(--dark);
   }
 }
