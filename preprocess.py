@@ -42,11 +42,14 @@ def add_inline_tag_to_yaml(md_file_path):
       tags_field = [tags_field]
   
   inline_tags = get_inline_tags(md_text)
-  tags_field = list(set(tags_field + inline_tags))
-  md_frontmatter["tags"] = tags_field
-    
-  with open(md_file_path, "wb") as f_w:
-    frontmatter.dump(md_frontmatter, f_w)
+  try:
+    tags_field = list(set(tags_field + inline_tags))
+    md_frontmatter["tags"] = tags_field
+      
+    with open(md_file_path, "wb") as f_w:
+      frontmatter.dump(md_frontmatter, f_w)
+  except: # whoops that regex isn't strict enough... workaround for now.
+    pass
     
   return
 
@@ -84,7 +87,7 @@ def find_and_copy_published(source_path: str, copy_to_path: str):
           # destination should be lower-case (spaces will be handled by hugo with `urlize`)
           # file_name_lower = os.path.basename(file_path).lower() # HACK unnecessary?
 
-          # print(f"publish: {file_path}")
+          print(f"publish: {file_path}")
           # copy that file to the publish notes directory
           shutil.copy(
             # file_path, os.path.join(copy_to_path, file_name_lower) # HACK unnecessary?
