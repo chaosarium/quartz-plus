@@ -1,4 +1,6 @@
-{{$dashedurl := replace .Destination "%20" "-" }}
+<!-- {{$dashedurl := replace .Destination "%20" "-" }} -->
+<!-- workaround: not have dashed url for external -->
+{{$dashedurl := .Destination }} 
 {{$external := strings.HasPrefix $dashedurl "http" }}
 {{- if $external -}}
 <a href="{{ $dashedurl }}" rel="noopener">{{ .Text | safeHTML }}</a>
