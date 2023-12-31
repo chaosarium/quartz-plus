@@ -1,7 +1,7 @@
 <!-- {{$dashedurl := replace .Destination "%20" "-" }} -->
 <!-- workaround: not have dashed url for external -->
 {{$dashedurl := .Destination }} 
-{{$external := strings.HasPrefix $dashedurl "http" }}
+{{$external := or (strings.HasPrefix $dashedurl "http") (strings.HasPrefix $dashedurl "mailto:")}}
 {{- if $external -}}
 <a href="{{ $dashedurl }}" rel="noopener">{{ .Text | safeHTML }}</a>
 {{- else -}}

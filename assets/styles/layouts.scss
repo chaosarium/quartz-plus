@@ -78,3 +78,37 @@
    padding: 0;
    margin: 0 auto;
 }
+
+.centredPage{
+   height: 100vh;
+   width: 100%;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+
+   article {
+      max-width: 30em;
+      margin-top: auto;
+      margin-bottom: auto;
+      p, ul, text, a, tr, td, li, ol, ul {
+         font-family: 'IBM Plex Mono';
+         letter-spacing: 0.1rem;
+      }
+      em strong {
+         font-weight: 700;
+         font-style: normal;
+      }
+      b, strong {
+         font-weight: 500;
+         color: var(--dark);
+      }
+      a {
+         text-decoration: underline;
+         font-weight: 300;
+      }
+      tbody, li, p {
+         line-height: 1.2rem;
+      }
+   }
+    
+}
